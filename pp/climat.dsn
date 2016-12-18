@@ -1,0 +1,142 @@
+(pcb /mnt/localdisk/my/radio_proj/climate_control/pp/climat.dsn
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "4.0.2+dfsg1-2~bpo8+1-stable")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 1)
+      )
+    )
+    (boundary
+      (rect pcb 100302 -63855 130475 -129185)
+    )
+    (via "Via[0-1]_600:400_um")
+    (rule
+      (width 250)
+      (clearance 200.1)
+      (clearance 200.1 (type default_smd))
+      (clearance 50 (type smd_smd))
+    )
+  )
+  (placement
+    (component Buttons_Switches_SMD:SW_SPST_EVPBF
+      (place SW1 127000 -68580 front 90 (PN SW_PUSH))
+      (place SW2 127000 -83820 front 90 (PN SW_PUSH))
+      (place SW3 127000 -99060 front 90 (PN SW_PUSH))
+      (place SW4 127000 -124460 front 90 (PN SW_PUSH))
+      (place SW5 127000 -111760 front 90 (PN SW_PUSH))
+    )
+    (component Pin_Headers:Pin_Header_Straight_1x06
+      (place P1 105410 -99060 front 180 (PN CONN_01X06))
+    )
+  )
+  (library
+    (image Buttons_Switches_SMD:SW_SPST_EVPBF
+      (outline (path signal 50  -4500 3250  4500 3250))
+      (outline (path signal 50  4500 3250  4500 -3250))
+      (outline (path signal 50  4500 -3250  -4500 -3250))
+      (outline (path signal 50  -4500 -3250  -4500 3250))
+      (outline (path signal 150  3000 3000  3000 2800))
+      (outline (path signal 150  3000 -3000  3000 -2800))
+      (outline (path signal 150  -3000 -3000  -3000 -2800))
+      (outline (path signal 150  -3000 3000  -3000 2800))
+      (outline (path signal 150  -3000 1200  -3000 -1200))
+      (outline (path signal 150  3000 1200  3000 -1200))
+      (outline (path signal 150  3000 3000  -3000 3000))
+      (outline (path signal 150  -3000 -3000  3000 -3000))
+      (outline (path signal 150  1700 0  1616.8 -525.329  1375.33 -999.235  999.235 -1375.33
+            525.329 -1616.8  0 -1700  -525.329 -1616.8  -999.235 -1375.33
+            -1375.33 -999.235  -1616.8 -525.329  -1700 0  -1616.8 525.329
+            -1375.33 999.235  -999.235 1375.33  -525.329 1616.8  0 1700
+            525.329 1616.8  999.235 1375.33  1375.33 999.235  1616.8 525.329))
+      (pin Rect[T]Pad_2750x1000_um 1 2875 2000)
+      (pin Rect[T]Pad_2750x1000_um 1@1 -2875 2000)
+      (pin Rect[T]Pad_2750x1000_um 2 -2875 -2000)
+      (pin Rect[T]Pad_2750x1000_um 2@1 2875 -2000)
+    )
+    (image Pin_Headers:Pin_Header_Straight_1x06
+      (outline (path signal 50  -1750 1750  -1750 -14450))
+      (outline (path signal 50  1750 1750  1750 -14450))
+      (outline (path signal 50  -1750 1750  1750 1750))
+      (outline (path signal 50  -1750 -14450  1750 -14450))
+      (outline (path signal 150  1270 -1270  1270 -13970))
+      (outline (path signal 150  1270 -13970  -1270 -13970))
+      (outline (path signal 150  -1270 -13970  -1270 -1270))
+      (outline (path signal 150  1550 1550  1550 0))
+      (outline (path signal 150  1270 -1270  -1270 -1270))
+      (outline (path signal 150  -1550 0  -1550 1550))
+      (outline (path signal 150  -1550 1550  1550 1550))
+      (pin Rect[A]Pad_2032x1727.2_um 1 0 0)
+      (pin Oval[A]Pad_2032x1727.2_um 2 0 -2540)
+      (pin Oval[A]Pad_2032x1727.2_um 3 0 -5080)
+      (pin Oval[A]Pad_2032x1727.2_um 4 0 -7620)
+      (pin Oval[A]Pad_2032x1727.2_um 5 0 -10160)
+      (pin Oval[A]Pad_2032x1727.2_um 6 0 -12700)
+    )
+    (padstack Oval[A]Pad_2032x1727.2_um
+      (shape (path F.Cu 1727.2  -152.4 0  152.4 0))
+      (shape (path B.Cu 1727.2  -152.4 0  152.4 0))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_2032x1727.2_um
+      (shape (rect F.Cu -1016 -863.6 1016 863.6))
+      (shape (rect B.Cu -1016 -863.6 1016 863.6))
+      (attach off)
+    )
+    (padstack Rect[T]Pad_2750x1000_um
+      (shape (rect F.Cu -1375 -500 1375 500))
+      (attach off)
+    )
+    (padstack "Via[0-1]_600:400_um"
+      (shape (circle F.Cu 600))
+      (shape (circle B.Cu 600))
+      (attach off)
+    )
+  )
+  (network
+    (net "Net-(P1-Pad6)"
+      (pins SW1-1 SW1-1@1 P1-6)
+    )
+    (net "Net-(P1-Pad1)"
+      (pins SW1-2 SW1-2@1 SW2-2 SW2-2@1 SW3-2 SW3-2@1 SW4-2 SW4-2@1 SW5-2 SW5-2@1
+        P1-1)
+    )
+    (net "Net-(P1-Pad5)"
+      (pins SW2-1 SW2-1@1 P1-5)
+    )
+    (net "Net-(P1-Pad4)"
+      (pins SW3-1 SW3-1@1 P1-4)
+    )
+    (net "Net-(P1-Pad3)"
+      (pins SW4-1 SW4-1@1 P1-3)
+    )
+    (net "Net-(P1-Pad2)"
+      (pins SW5-1 SW5-1@1 P1-2)
+    )
+    (class kicad_default "" "Net-(P1-Pad1)" "Net-(P1-Pad2)" "Net-(P1-Pad3)"
+      "Net-(P1-Pad4)" "Net-(P1-Pad5)" "Net-(P1-Pad6)"
+      (circuit
+        (use_via Via[0-1]_600:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 200.1)
+      )
+    )
+  )
+  (wiring
+  )
+)
