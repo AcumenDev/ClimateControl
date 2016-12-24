@@ -12,6 +12,7 @@ public:
     size_t print(char item) ;
     size_t print(int item);
     size_t print(double item);
+    size_t print(long unsigned int);
     void flush();
     size_t println(const char[]);
 /*    size_t println(const __FlashStringHelper *);

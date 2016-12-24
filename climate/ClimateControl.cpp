@@ -1,9 +1,9 @@
 #include "ClimateControl.hpp"
 
-ClimateControl::ClimateControl(Values *values, Relays *relays, int interval) {
+ClimateControl::ClimateControl(Values *values, Relays *relays, int interval)
+        : IntervalWorckerBase(interval) {
     this->values = values;
     this->relays = relays;
-    this->interval = interval;
     this->gisteris = 1.0f;
     this->workType = OFF;
     this->timestamp = 0;
@@ -11,13 +11,12 @@ ClimateControl::ClimateControl(Values *values, Relays *relays, int interval) {
 }
 
 void ClimateControl::update(unsigned long currentMillis) {
-    if ((currentMillis - previousMillis) < interval) {
+     if (!isWorkTime(currentMillis)) {
         return;
     }
+
     temperatureControl(currentMillis);
     humidityControl();
-
-    previousMillis = currentMillis;
 }
 
 void ClimateControl::humidityControl() {
@@ -67,21 +66,20 @@ void ClimateControl::heating(unsigned long currentMillis) {
         relays->heatingOff();
 
         if (values->temperature > values->targetTemperature + gisteris) {
-     //       if (timestamp == 0) {
-     //           timestamp = currentMillis;
-    //        }
+            //       if (timestamp == 0) {
+            //           timestamp = currentMillis;
+            //        }
 
-       //     if (currentMillis - timestamp >= waitingTime) {
-                this->workType = OFF;
-                timestamp = 0;
-    //        }
-    //        if (values->temperature <= values->targetTemperature) {
-    //            timestamp = 0;
-   //         }
+            //     if (currentMillis - timestamp >= waitingTime) {
+            this->workType = OFF;
+            timestamp = 0;
+            //        }
+            //        if (values->temperature <= values->targetTemperature) {
+            //            timestamp = 0;
+            //         }
         }
     }
 }
-
 
 
 void ClimateControl::cooling(unsigned long currentMillis) {
@@ -98,17 +96,17 @@ void ClimateControl::cooling(unsigned long currentMillis) {
         relays->coolingOff();
 
         if (values->temperature < values->targetTemperature - gisteris) {
-           // if (timestamp == 0) {
-          //      timestamp = currentMillis;
-          //  }
+            // if (timestamp == 0) {
+            //      timestamp = currentMillis;
+            //  }
 
-        //    if (currentMillis - timestamp >= waitingTime) {
-                this->workType = OFF;
-                timestamp = 0;
-       //     }
+            //    if (currentMillis - timestamp >= waitingTime) {
+            this->workType = OFF;
+            timestamp = 0;
+            //     }
         }
-    //    if (values->temperature >= values->targetTemperature) {
-     //       timestamp = 0;
-     //   }
+        //    if (values->temperature >= values->targetTemperature) {
+        //       timestamp = 0;
+        //   }
     }
 }

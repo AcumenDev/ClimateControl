@@ -2,22 +2,22 @@
 #define CLIMAT_CONTROL_HPP
 #include "Values.h"
 #include "Relays.hpp"
+#include "IntervalWorkerBase.hpp"
+
 enum WorkType {
   HEATING,
   COOLING,
   OFF
 };
-class ClimateControl {
-    unsigned long previousMillis;
+class ClimateControl : public IntervalWorckerBase {
     Values * values;
     Relays * relays;
-    int interval;
     float gisteris;
     WorkType workType;
     unsigned long timestamp;
     unsigned long waitingTime;
   public:
-    ClimateControl(Values * values, Relays * relays, int interval);
+    ClimateControl(Values *values, Relays *relays, int interval);
 
     void update(unsigned long currentMillis);
     void temperatureControl(unsigned long currentMillis);

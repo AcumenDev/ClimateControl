@@ -10,11 +10,20 @@
 #define DHT22 1
 
 class DHT {
+    static float temperature;
+    static float humidity;
 public:
     DHT(uint8_t pin, uint8_t type);
-    void begin(void);
-    float readTemperature(bool S=false, bool force=false);
-    float readHumidity(bool force=false);
+
+    void begin();
+
+    float readTemperature(bool S = false, bool force = false);
+
+    float readHumidity(bool force = false);
+
+    void setTemp(float value);
+
+    void setHumidity(float value);
 };
 
 

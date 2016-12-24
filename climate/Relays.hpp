@@ -3,12 +3,12 @@
 #include "Arduino.h"
 #include "inttypes.h"
 class Relays {
-    char humidificationRelayPin;
-    char heatingRelayPin;
-    char coolingRelayPin;
+    uint8_t humidificationRelayPin;
+    uint8_t heatingRelayPin;
+    uint8_t coolingRelayPin;
 
   public:
-    Relays(char humidificationRelayPin, char heatingRelayPin, char coolingRelayPin);
+    Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t coolingRelayPin);
     void humidificationOn();
     void humidificationOff();
     void heatingOn();

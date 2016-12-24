@@ -1,19 +1,31 @@
 #ifndef Sensors_h
 #define Sensors_h
+
 #include "DHT.h"
 #include "Values.h"
+#include "IntervalWorkerBase.hpp"
 
-class Sensors {
+#define ARITHMETIC_SUM_SIZE 10
 
-    unsigned long previousMillis;
-    char sensorPin;
-    DHT * dht;
-    int interval;
+class Sensors : public IntervalWorckerBase {
+    DHT *dht;
     Values *values;
 
-  public:
+    float temperatureValuesTick[ARITHMETIC_SUM_SIZE];
+    float humidityValuesTick[ARITHMETIC_SUM_SIZE];
+    uint8_t temperatureIndexStack = 0;
+    uint8_t humidityIndexStack = 0;
 
-    Sensors( char sensorPin, int interval, Values *values);
+    float _getTemperature(float currentTemperature);
+
+    float _getHumidity(float currentHumidity);
+
+public:
+
+    Sensors(uint8_t sensorPin, int interval, Values *values);
+
     void update(unsigned long currentMillis);
+
 };
+
 #endif

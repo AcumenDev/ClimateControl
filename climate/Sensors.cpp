@@ -1,43 +1,66 @@
 #include "Sensors.hpp"
 
-Sensors::Sensors( char sensorPin, int interval, Values *values)
-{
-
-  this->sensorPin = sensorPin;
-  this->values = values;
-  this->interval = interval;
-  dht = new DHT(sensorPin, DHT22);
-  dht->begin();
+Sensors::Sensors(uint8_t sensorPin, int interval, Values *values)
+        : IntervalWorckerBase(interval) {
+    this->values = values;
+    dht = new DHT(sensorPin, DHT22);
+    dht->begin();
+    for (uint8_t i = 0; i < ARITHMETIC_SUM_SIZE; i++) {
+        temperatureValuesTick[i] = 0;
+    }
 }
 
+void Sensors::update(unsigned long currentMillis) {
+    if (!isWorkTime(currentMillis)) {
+        return;
+    }
 
-void  Sensors::update(unsigned long currentMillis) {
-  if ( (currentMillis - previousMillis) < interval) {
-    return;
-  }
-
-  values->humidity = dht->readHumidity();
-  values->temperature = dht->readTemperature();
-
+    values->humidity = _getHumidity(dht->readHumidity());
+    values->temperature = _getTemperature(dht->readTemperature());
 
 #ifdef DEBUG
-  // Check if any reads failed and exit early (to try again).
-  if (isnan(values->humidity) || isnan(values->temperature) ) {
-    Serial.println("Failed to read from DHT sensor!");
-  }
-
-
-  // Compute heat index in Celsius (isFahreheit = false)
-  // float hic = dht->computeHeatIndex(t, h, false);
-
- // Serial.print("Temperature: ");
-//  Serial.print(values->temperature);
-
-//  Serial.print(" *C\t");
-//  Serial.print("Humidity: ");
- // Serial.print(values->humidity);
-//  Serial.print(" % ");
-//  Serial.println();
+    if (isnan(values->humidity) || isnan(values->temperature)) {
+        Serial.println("Failed to read from DHT sensor!");
+    }
 #endif
-  previousMillis = currentMillis;
+}
+
+float Sensors::_getTemperature(float currentTemperature) {
+    temperatureValuesTick[temperatureIndexStack] = currentTemperature;
+    if (temperatureIndexStack == ARITHMETIC_SUM_SIZE - 1) {
+        temperatureIndexStack = 0;
+    } else {
+        temperatureIndexStack++;
+    }
+
+    float temperatureSum = 0;
+    uint8_t count = 0;
+    for (uint8_t i = 0; i <= ARITHMETIC_SUM_SIZE - 1; i++) {
+        if (temperatureValuesTick[i] != 0) {
+            temperatureSum = temperatureSum + temperatureValuesTick[i];
+            count++;
+        }
+    }
+
+    return temperatureSum / count;
+}
+
+float Sensors::_getHumidity(float currentHumidity) {
+    humidityValuesTick[humidityIndexStack] = currentHumidity;
+    if (humidityIndexStack >= ARITHMETIC_SUM_SIZE - 1) {
+        humidityIndexStack = 0;
+    } else {
+        humidityIndexStack++;
+    }
+
+    float humiditySum = 0;
+    uint8_t count = 0;
+    for (uint8_t i = 0; i <= ARITHMETIC_SUM_SIZE - 1; i++) {
+        if (humidityValuesTick[i] != 0) {
+            humiditySum = humiditySum + humidityValuesTick[i];
+            count++;
+        }
+    }
+
+    return humiditySum / count;
 }

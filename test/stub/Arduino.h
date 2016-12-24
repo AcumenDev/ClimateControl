@@ -10,6 +10,7 @@
 #include <cmath>
 #include <cfloat>
 #include "HardwareSerial.hpp"
+#include "../../climate/Config.hpp"
 
 typedef uint8_t byte;
 typedef bool boolean;

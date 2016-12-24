@@ -10,9 +10,9 @@ class Button {
     // will quickly become a bigger number than can be stored in an int.
     unsigned long lastDebounceTime;  // the last time the output pin was toggled
     unsigned long debounceDelay;    // the debounce time; increase if the output flickers
-   
-    int buttonState;             // the current reading from the input pin
-    int lastButtonState;   // the previous reading from the input pin
+
+    bool buttonState;             // the current reading from the input pin
+    bool lastButtonState;   // the previous reading from the input pin
 
     byte buttonPin;
     bool readPresed;
