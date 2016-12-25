@@ -27,6 +27,7 @@ public:
     void showHeating(float number);
 
 private:
+    void reInitDisplay();
     void showNumber(float number, int startDig);
 
     void showDigit(int number, int digit, bool dot);

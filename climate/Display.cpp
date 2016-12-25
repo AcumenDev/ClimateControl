@@ -10,10 +10,7 @@ Display::Display(char displayDataPin, char displayClkPin, char displayCsPin, int
     this->values = values;
     this->ledControl = new LedControl(displayDataPin, displayClkPin, displayCsPin);
 
-    ledControl->shutdown(0, false);
-    ledControl->setScanLimit(0, 8);
-    ledControl->setIntensity(0, 15);
-    ledControl->clearDisplay(0);
+    reInitDisplay();
 }
 
 void Display::update(unsigned long currentMillis) {
@@ -22,14 +19,14 @@ void Display::update(unsigned long currentMillis) {
         if (!isWorkTime(currentMillis, intervalChange)) {
             return;
         }
-        ledControl->clearDisplay(0);
+        reInitDisplay();
         showTemp(values->targetTemperature);
         showHeating(values->targetHumidity);
     } else {
         if (!isWorkTime(currentMillis)) {
             return;
         }
-        ledControl->clearDisplay(0);
+        reInitDisplay();
         showTemp(values->temperature);
         showHeating(values->humidity);
         values->changeTimeStamp = 0;
@@ -44,6 +41,12 @@ void Display::showHeating(float heating) {
     showNumber(heating, 3);
 }
 
+void Display::reInitDisplay() {
+    ledControl->shutdown(0, false);
+    ledControl->setScanLimit(0, 8);
+    ledControl->setIntensity(0, 15);
+    ledControl->clearDisplay(0);
+}
 
 void Display::showNumber(float number, int startDig) {
     // Serial.print("number: ");
