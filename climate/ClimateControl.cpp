@@ -4,14 +4,15 @@ ClimateControl::ClimateControl(Values *values, Relays *relays, int interval)
         : IntervalWorckerBase(interval) {
     this->values = values;
     this->relays = relays;
-    this->gisteris = 1.0f;
+    this->temperatureGisteris = 1.0f;
+    this->humidityGisteris = 1.0f;
     this->workType = OFF;
     this->timestamp = 0;
-    this->waitingTime = 60 * 5 * 1000;
+  //  this->waitingTime = 60 * 5 * 1000;
 }
 
 void ClimateControl::update(unsigned long currentMillis) {
-     if (!isWorkTime(currentMillis)) {
+    if (!isWorkTime(currentMillis)) {
         return;
     }
 
@@ -20,13 +21,12 @@ void ClimateControl::update(unsigned long currentMillis) {
 }
 
 void ClimateControl::humidityControl() {
-    if (values->humidity < values->targetHumidity) {
+    if (values->humidity < values->targetHumidity - humidityGisteris) {
         relays->humidificationOn();
     } else if (values->humidity >= values->targetHumidity) {
         relays->humidificationOff();
     }
 }
-
 
 void ClimateControl::temperatureControl(unsigned long currentMillis) {
     switch (workType) {
@@ -54,18 +54,17 @@ void ClimateControl::heating(unsigned long currentMillis) {
 
     if (values->temperature < values->targetTemperature) {
         if (workType == HEATING) {
-            if (values->temperature < (values->targetTemperature - gisteris)) {
+            if (values->temperature < (values->targetTemperature - temperatureGisteris)) {
                 relays->heatingOn();
             }
-        }
-        else {
+        } else {
             workType = HEATING;
             relays->heatingOn();
         }
     } else if (values->temperature >= values->targetTemperature) {
         relays->heatingOff();
 
-        if (values->temperature > values->targetTemperature + gisteris) {
+        if (values->temperature > values->targetTemperature + temperatureGisteris) {
             //       if (timestamp == 0) {
             //           timestamp = currentMillis;
             //        }
@@ -85,7 +84,7 @@ void ClimateControl::heating(unsigned long currentMillis) {
 void ClimateControl::cooling(unsigned long currentMillis) {
     if (values->temperature > values->targetTemperature) {
         if (workType == COOLING) {
-            if (values->temperature > (values->targetTemperature + gisteris)) {
+            if (values->temperature > (values->targetTemperature + temperatureGisteris)) {
                 relays->coolingOn();
             }
         } else {
@@ -95,7 +94,7 @@ void ClimateControl::cooling(unsigned long currentMillis) {
     } else if (values->temperature <= values->targetTemperature) {
         relays->coolingOff();
 
-        if (values->temperature < values->targetTemperature - gisteris) {
+        if (values->temperature < values->targetTemperature - temperatureGisteris) {
             // if (timestamp == 0) {
             //      timestamp = currentMillis;
             //  }

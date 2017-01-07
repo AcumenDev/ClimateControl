@@ -8,6 +8,7 @@ Climate::Climate() {
     display = new Display(DISPLAY_DATA_PIN, DISPLAY_CLK_PIN, DISPLAY_CS_PIN, 100, 5000, values);
     relays = new Relays(HUMIDIFICATION_RELAY_PIN, HEATING_RELAY_PIN, COOLING_RELAY_PIN);
     climateControl = new ClimateControl(values, relays, 1000);
+    startTimeOut = false;
 }
 
 void Climate::setup() {
@@ -16,18 +17,25 @@ void Climate::setup() {
 }
 
 void Climate::loop(unsigned long currentMillis) {
+    if (!startTimeOut && currentMillis >=  40000) {
+        startTimeOut = true;
+    }
+
     sensors->update(currentMillis);
     keys->update(currentMillis);
     display->update(currentMillis);
-    climateControl->update(currentMillis);
+
+    if (startTimeOut) { ////Что бы не счелкала релюхами пока идет старт и прогрев датчиков
+        climateControl->update(currentMillis);
+    }
+
     values->update(currentMillis);
 
     if ((currentMillis - previousMillis) < 10 * 1000) {
         return;
     }
 
-
-    Serial.print(currentMillis/1000);
+    Serial.print(currentMillis / 1000);
     Serial.print("\t");
     //  Serial.print(" T: ");
     Serial.print(values->temperature);

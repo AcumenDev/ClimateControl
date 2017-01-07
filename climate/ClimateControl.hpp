@@ -12,10 +12,11 @@ enum WorkType {
 class ClimateControl : public IntervalWorckerBase {
     Values * values;
     Relays * relays;
-    float gisteris;
+    float temperatureGisteris;
+    float humidityGisteris;
     WorkType workType;
     unsigned long timestamp;
-    unsigned long waitingTime;
+  //  unsigned long waitingTime;
   public:
     ClimateControl(Values *values, Relays *relays, int interval);
 

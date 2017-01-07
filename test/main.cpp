@@ -26,7 +26,7 @@ int main() {
     unsigned long currentMillis = 0;
     startTime = 0;
     while (state) {
-        if (currentMillis/1000 >= daySeconds * 30) {
+        if (currentMillis/1000 >= daySeconds * 1) {
             break;
         }
         currentSeconds = duration_cast<milliseconds>(

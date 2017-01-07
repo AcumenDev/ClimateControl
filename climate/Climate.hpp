@@ -18,7 +18,7 @@ class Climate {
     Relays * relays;
     ClimateControl *  climateControl;
     unsigned long previousMillis;
-  
+    bool startTimeOut;
     Climate();
     void setup();
     void loop(unsigned long currentMillis);

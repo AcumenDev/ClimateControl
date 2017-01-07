@@ -41,13 +41,15 @@ float Sensors::_getTemperature(float currentTemperature) {
             count++;
         }
     }
-
+    if (count == 0) {
+        return 0;
+    }
     return temperatureSum / count;
 }
 
 float Sensors::_getHumidity(float currentHumidity) {
     humidityValuesTick[humidityIndexStack] = currentHumidity;
-    if (humidityIndexStack >= ARITHMETIC_SUM_SIZE - 1) {
+    if (humidityIndexStack == ARITHMETIC_SUM_SIZE - 1) {
         humidityIndexStack = 0;
     } else {
         humidityIndexStack++;
@@ -60,6 +62,10 @@ float Sensors::_getHumidity(float currentHumidity) {
             humiditySum = humiditySum + humidityValuesTick[i];
             count++;
         }
+    }
+
+    if (count == 0) {
+        return 0;
     }
 
     return humiditySum / count;

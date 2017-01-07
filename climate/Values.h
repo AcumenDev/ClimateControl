@@ -11,7 +11,7 @@
 
 
 class Values {
-public:
+  public:
 
     float humidity;
     float temperature;
@@ -27,87 +27,87 @@ public:
 
     bool control = true;
 
-    int changeDelay = 2000;
+    unsigned  int changeDelay = 1500;
 
     Values() {
-        humidity = 0;
-        temperature = 0;
+      humidity = 0;
+      temperature = 0;
 
-        ////загрузить из памяти
-        targetHumidity = 70;
-        targetTemperature = 20;
+      ////загрузить из памяти
+      targetHumidity = 70;
+      targetTemperature = 20;
     }
 
     void controlSet() {
-        control = !control;
+      control = !control;
     }
 
 
     void loadFromEEprom() {
-        byte saveTargetTemperature = EEPROM.read(TARGET_TEMPERATURE_EEPROM_ADR);
-        byte saveTargetHumidity = EEPROM.read(TARGET_HUMIDITY_EEPROM_ADR);
+      byte saveTargetTemperature = EEPROM.read(TARGET_TEMPERATURE_EEPROM_ADR);
+      byte saveTargetHumidity = EEPROM.read(TARGET_HUMIDITY_EEPROM_ADR);
 
-        if (saveTargetTemperature >= mintargetTemperature && saveTargetTemperature <= maxtargetTemperature) {
-            targetTemperature = (int) saveTargetTemperature;
-        }
-        if (saveTargetHumidity >= minHumidity && saveTargetHumidity <= maxHumidity) {
-            targetHumidity = (int) saveTargetHumidity;
-        }
+      if (saveTargetTemperature >= mintargetTemperature && saveTargetTemperature <= maxtargetTemperature) {
+        targetTemperature = (int) saveTargetTemperature;
+      }
+      if (saveTargetHumidity >= minHumidity && saveTargetHumidity <= maxHumidity) {
+        targetHumidity = (int) saveTargetHumidity;
+      }
     }
 
     void saveToEEprom() {
-        EEPROM.update(TARGET_TEMPERATURE_EEPROM_ADR, (byte) targetTemperature);
-        EEPROM.update(TARGET_HUMIDITY_EEPROM_ADR, (byte) targetHumidity);
+      EEPROM.update(TARGET_TEMPERATURE_EEPROM_ADR, (byte) targetTemperature);
+      EEPROM.update(TARGET_HUMIDITY_EEPROM_ADR, (byte) targetHumidity);
     }
 
     bool isAfterChange(unsigned long currentMillis) {
-        return currentMillis - changeTimeStamp < changeDelay;
+      return currentMillis - changeTimeStamp < changeDelay;
     }
 
     void update(unsigned long currentMillis) {
-        if (!changed) {
-            return;
-        }
+      if (!changed) {
+        return;
+      }
 
-        if (currentMillis - changeTimeStamp > changeDelay) {
-            saveToEEprom();
-            changed = false;
-        }
+      if (currentMillis - changeTimeStamp > changeDelay) {
+        saveToEEprom();
+        changed = false;
+      }
     }
 
     void plusTemp(unsigned long currentMillis) {
-        if (targetTemperature < maxtargetTemperature) {
-            targetTemperature++;
+      if (targetTemperature < maxtargetTemperature) {
+        targetTemperature++;
 
-        }
-        setTimestamp(currentMillis);
+      }
+      setTimestamp(currentMillis);
     }
 
     void minusTemp(unsigned long currentMillis) {
-        if (targetTemperature > mintargetTemperature) {
-            targetTemperature--;
-        }
-        setTimestamp(currentMillis);
+      if (targetTemperature > mintargetTemperature) {
+        targetTemperature--;
+      }
+      setTimestamp(currentMillis);
     }
 
     void plusHumidity(unsigned long currentMillis) {
-        if (targetHumidity < maxHumidity) {
-            targetHumidity++;
-        }
-        setTimestamp(currentMillis);
+      if (targetHumidity < maxHumidity) {
+        targetHumidity++;
+      }
+      setTimestamp(currentMillis);
     }
 
     void minusHumidity(unsigned long currentMillis) {
-        if (targetHumidity > minHumidity) {
-            targetHumidity--;
-        }
-        setTimestamp(currentMillis);
+      if (targetHumidity > minHumidity) {
+        targetHumidity--;
+      }
+      setTimestamp(currentMillis);
     }
 
-private:
+  private:
     void setTimestamp(unsigned long currentMillis) {
-        changeTimeStamp = currentMillis;
-        changed = true;
+      changeTimeStamp = currentMillis;
+      changed = true;
     }
 };
 

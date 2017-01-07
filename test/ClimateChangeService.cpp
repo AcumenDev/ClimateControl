@@ -23,6 +23,19 @@ void ClimateChangeService::update(unsigned long currentMillis) {
     }
 
 
+    int Humidity = 55;
+    float cofHumidity = 0.005;
+
+    float cofPriborHumidity = 0.006;
+    if (values->humidity > Humidity) {
+        values->humidity = values->humidity - cofHumidity;
+        dht->setHumidity(dht->readHumidity()-cofHumidity);
+    } else if (values->humidity < Humidity) {
+        dht->setHumidity(dht->readHumidity()+cofHumidity);
+    }
+
+
+
 /*    if (currentMillis - startTime < hour6) {
         Temperature = -22;
     } else if (currentMillis - startTime < hour12) {
@@ -49,7 +62,7 @@ void ClimateChangeService::update(unsigned long currentMillis) {
 
 
     if (!digitalRead(HUMIDIFICATION_RELAY_PIN)) {
-      dht->setHumidity(dht->readHumidity()+cofPribor);
+      dht->setHumidity(dht->readHumidity()+cofPriborHumidity);
     }
     if (!digitalRead(HEATING_RELAY_PIN)) {
         dht->setTemp(dht->readTemperature()+cofPribor);
