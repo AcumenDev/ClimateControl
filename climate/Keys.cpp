@@ -1,58 +1,38 @@
 #include "Keys.hpp"
 
-Keys::Keys(
-        uint8_t coolingButtonPlusPin,
-        uint8_t coolingButtonMinusPin,
-        uint8_t heatingButtonPlusPin,
-        uint8_t heatingButtonMinusPin,
-        uint8_t controlButtonPin,
-        Values *values) {
+Keys::Keys(uint8_t buttonSelectPin, uint8_t buttonPlusPin,  uint8_t buttonMinusPin, Values *values) {
     this->values = values;
-    this->coolingButtonPlusPin = coolingButtonPlusPin;
-    this->coolingButtonMinusPin = coolingButtonMinusPin;
-    this->heatingButtonPlusPin = heatingButtonPlusPin;
-    this->heatingButtonMinusPin = heatingButtonMinusPin;
-    this->controlButtonPin = controlButtonPin;
+    this->buttonSelectPin = buttonSelectPin;
+    this->buttonPlusPin = buttonPlusPin;
+    this->buttonMinusPin = buttonMinusPin;
 
-    pinMode(this->coolingButtonPlusPin, INPUT_PULLUP);
-    pinMode(this->coolingButtonMinusPin, INPUT_PULLUP);
-    pinMode(this->heatingButtonPlusPin, INPUT_PULLUP);
-    pinMode(this->heatingButtonMinusPin, INPUT_PULLUP);
-    pinMode(this->controlButtonPin, INPUT_PULLUP);
+    pinMode(this->buttonSelectPin, INPUT_PULLUP);
+    pinMode(this->buttonPlusPin, INPUT_PULLUP);
+    pinMode(this->buttonMinusPin, INPUT_PULLUP);
 
-    coolingButtonPlus = new Button(coolingButtonPlusPin);
-    coolingButtonMinus = new Button(coolingButtonMinusPin);
-    heatingButtonPlus = new Button(heatingButtonPlusPin);
-    heatingButtonMinus = new Button(heatingButtonMinusPin);
-    controlButton = new Button(controlButtonPin);
+    buttonSelect = new Button(buttonSelectPin);
+    buttonPlus = new Button(buttonPlusPin);
+    buttonMinus = new Button(buttonMinusPin);
 }
 
 void Keys::update(unsigned long currentMillis) {
-    coolingButtonPlus->update(currentMillis);
-    coolingButtonMinus->update(currentMillis);
-    heatingButtonPlus->update(currentMillis);
-    heatingButtonMinus->update(currentMillis);
-    controlButton->update(currentMillis);
+    buttonSelect->update(currentMillis);
+    buttonPlus->update(currentMillis);
+    buttonMinus->update(currentMillis);
 
-    if (coolingButtonPlus->isPressed()) {
-        values->plusTemp(currentMillis);
+    if (buttonSelect->isPressed()) {
+        values->changeSelection(currentMillis);
     }
 
-    if (coolingButtonMinus->isPressed()) {
-        values->minusTemp(currentMillis);
+    if (buttonMinus->isPressed()) {
+        values->minus(currentMillis);
     }
 
-    if (heatingButtonPlus->isPressed()) {
-        values->plusHumidity(currentMillis);
-    }
-
-    if (heatingButtonMinus->isPressed()) {
-        values->minusHumidity(currentMillis);
-    }
-
-    if (controlButton->isPressed()) {
-        values->controlSet();
+    if (buttonPlus->isPressed()) {
+        values->plus(currentMillis);
     }
 }
 
 void Keys::check_key() { }
+
+

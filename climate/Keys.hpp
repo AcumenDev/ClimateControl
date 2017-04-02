@@ -9,20 +9,17 @@ class Keys {
     Values * values;
     int value, old_value;
 
-    uint8_t coolingButtonPlusPin;
-    uint8_t coolingButtonMinusPin;
-    uint8_t heatingButtonPlusPin;
-    uint8_t heatingButtonMinusPin;
-    uint8_t controlButtonPin;
+    uint8_t buttonSelectPin;
+    uint8_t buttonMinusPin;
+    uint8_t buttonPlusPin;
 
-    Button * coolingButtonPlus;
-    Button * coolingButtonMinus;
-    Button * heatingButtonPlus;
-    Button * heatingButtonMinus;
-    Button * controlButton;
+    Button * buttonSelect;
+    Button * buttonPlus;
+    Button * buttonMinus;
+
 
   public:
-    Keys(uint8_t coolingButtonPlusPin, uint8_t coolingButtonMinusPin, uint8_t heatingButtonPlusPin, uint8_t heatingButtonMinusPin, uint8_t controlButtonPin, Values * values);
+    Keys(uint8_t buttonSelectPin, uint8_t buttonMinusPin, uint8_t buttonPlusPin, Values * values);
     void update(unsigned long currentMillis);
 
   private:

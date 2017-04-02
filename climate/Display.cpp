@@ -20,25 +20,25 @@ void Display::update(unsigned long currentMillis) {
             return;
         }
         reInitDisplay();
-        showTemp(values->targetTemperature);
-        showHeating(values->targetHumidity);
+        showTemp(values->getTarget(TYPE_CLIMATE_VALUE::TEMPERATURE));
+        showHeating(values->getTarget(TYPE_CLIMATE_VALUE::HUMIDITY));
     } else {
         if (!isWorkTime(currentMillis)) {
             return;
         }
         reInitDisplay();
-        showTemp(values->temperature);
-        showHeating(values->humidity);
+        showTemp(values->getCurrentValue(TYPE_CLIMATE_VALUE::TEMPERATURE));
+        showHeating(values->getCurrentValue(TYPE_CLIMATE_VALUE::HUMIDITY));
         values->changeTimeStamp = 0;
     }
 }
 
 void Display::showTemp(float temp) {
-    showNumber(temp, 7);
+    showNumber(temp, 8);
 }
 
 void Display::showHeating(float heating) {
-    showNumber(heating, 3);
+    showNumber(heating, 4);
 }
 
 void Display::reInitDisplay() {
@@ -49,8 +49,6 @@ void Display::reInitDisplay() {
 }
 
 void Display::showNumber(float number, int startDig) {
-    // Serial.print("number: ");
-    //  Serial.print(number);
     if (number == 0) {
         showDigit(0, startDig - 3, false); // отображаем 0 в правом разряде
     } else {
@@ -68,23 +66,12 @@ void Display::showNumber(float number, int startDig) {
 
         int dec = 0;
         if (number > 1) {
-
-            //    Serial.print("  (int)number: ");
-            //    Serial.print((int)number);
-
-            dec = (number - (int) number) * 10;
+            dec = (int) ((number - (int) number) * 10);
         } else {
-            dec = number * 10.0f;
+            dec = (int) (number * 10.0f);
         }
-
-
-        //   Serial.print("  dec: ");
-        //  Serial.print(dec);
-        //Serial.print("  digit: ");
-        // Serial.print(digit);
         showDigit(dec, startDig - 3, false);
     }
-    //  Serial.println();
 }
 
 // Отображаем заданное число на данном разряде 7-сегментного индикатора

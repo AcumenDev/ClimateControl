@@ -15,10 +15,10 @@ void ClimateChangeService::update(unsigned long currentMillis) {
     float cof = 0.005;
 
     float cofPribor = 0.006;
-    if (values->temperature > Temperature) {
-        values->temperature = values->temperature - cof;
+    if (values->getCurrentValue(TEMPERATURE) > Temperature) {
+        values->setCurrentValue(TEMPERATURE, values->getCurrentValue(TEMPERATURE) - cof); ////TODO творяться бесчинства переписать
         dht->setTemp(dht->readTemperature()-cof);
-    } else if (values->temperature < Temperature) {
+    } else if (values->getCurrentValue(TEMPERATURE) < Temperature) {
         dht->setTemp(dht->readTemperature()+cof);
     }
 
@@ -27,10 +27,10 @@ void ClimateChangeService::update(unsigned long currentMillis) {
     float cofHumidity = 0.005;
 
     float cofPriborHumidity = 0.006;
-    if (values->humidity > Humidity) {
-        values->humidity = values->humidity - cofHumidity;
+    if (values->getCurrentValue(HUMIDITY) > Humidity) {
+        values->setCurrentValue(HUMIDITY, values->getCurrentValue(HUMIDITY) - cofHumidity);
         dht->setHumidity(dht->readHumidity()-cofHumidity);
-    } else if (values->humidity < Humidity) {
+    } else if (values->getCurrentValue(HUMIDITY) < Humidity) {
         dht->setHumidity(dht->readHumidity()+cofHumidity);
     }
 

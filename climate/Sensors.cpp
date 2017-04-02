@@ -15,13 +15,11 @@ void Sensors::update(unsigned long currentMillis) {
         return;
     }
 
-    values->humidity = _getHumidity(dht->readHumidity());
-    values->temperature = _getTemperature(dht->readTemperature());
+    values->setCurrentValue(HUMIDITY, _getHumidity(dht->readHumidity()));
+    values->setCurrentValue(TEMPERATURE, _getTemperature(dht->readTemperature()));
 
 #ifdef DEBUG
-    if (isnan(values->humidity) || isnan(values->temperature)) {
-        Serial.println("Failed to read from DHT sensor!");
-    }
+
 #endif
 }
 

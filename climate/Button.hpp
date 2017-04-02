@@ -3,16 +3,13 @@
 #include "Values.h"
 #include "Arduino.h"
 #include "inttypes.h"
-//#include "Button.h"
+
 class Button {
+    unsigned long lastDebounceTime;
+    unsigned long debounceDelay;
 
-    // the following variables are unsigned long's because the time, measured in miliseconds,
-    // will quickly become a bigger number than can be stored in an int.
-    unsigned long lastDebounceTime;  // the last time the output pin was toggled
-    unsigned long debounceDelay;    // the debounce time; increase if the output flickers
-
-    bool buttonState;             // the current reading from the input pin
-    bool lastButtonState;   // the previous reading from the input pin
+    bool buttonState;
+    bool lastButtonState;
 
     byte buttonPin;
     bool readPresed;
