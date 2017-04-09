@@ -38,3 +38,11 @@ void Relays::coolingOff() {
     digitalWrite(coolingRelayPin, HIGH);
 }
 
+void Relays::ventilationOn() {
+///TODO
+}
+
+void Relays::ventilationOff() {
+///TODO
+}
+

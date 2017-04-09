@@ -4,11 +4,7 @@ ClimateControl::ClimateControl(Values *values, Relays *relays, int interval)
         : IntervalWorckerBase(interval) {
     this->values = values;
     this->relays = relays;
-    this->temperatureGisteris = 1.0f;
-    this->humidityGisteris = 1.0f;
     this->workType = OFF;
-    this->timestamp = 0;
-  //  this->waitingTime = 60 * 5 * 1000;
 }
 
 void ClimateControl::update(unsigned long currentMillis) {
@@ -16,45 +12,45 @@ void ClimateControl::update(unsigned long currentMillis) {
         return;
     }
 
-    temperatureControl(currentMillis);
+    temperatureControl();
     humidityControl();
+    co2Control();
 }
 
 void ClimateControl::humidityControl() {
-    if (values->getCurrentValue(HUMIDITY) < values->getTarget(HUMIDITY) -  values->getGisteris(HUMIDITY)) {
+    if (values->getCurrentValue(HUMIDITY) < values->getTarget(HUMIDITY) - values->getGisteris(HUMIDITY)) {
         relays->humidificationOn();
     } else if (values->getCurrentValue(HUMIDITY) >= values->getTarget(HUMIDITY)) {
         relays->humidificationOff();
     }
 }
 
-void ClimateControl::temperatureControl(unsigned long currentMillis) {
+void ClimateControl::temperatureControl() {
     switch (workType) {
         case OFF: {
             if (values->getCurrentValue(TEMPERATURE) < values->getTarget(TEMPERATURE)) {
-                heating(currentMillis);
+                heating();
             } else if (values->getCurrentValue(TEMPERATURE) > values->getTarget(TEMPERATURE)) {
-                cooling(currentMillis);
+                cooling();
             }
             break;
         }
         case HEATING: {
-            heating(currentMillis);
+            heating();
             break;
         }
         case COOLING: {
-            cooling(currentMillis);
+            cooling();
             break;
         }
     }
 }
 
-
-void ClimateControl::heating(unsigned long currentMillis) {
-
+void ClimateControl::heating() {
     if (values->getCurrentValue(TEMPERATURE) < values->getTarget(TEMPERATURE)) {
         if (workType == HEATING) {
-            if (values->getCurrentValue(TEMPERATURE) < (values->getTarget(TEMPERATURE) - values->getGisteris(TEMPERATURE))) {
+            if (values->getCurrentValue(TEMPERATURE) <
+                (values->getTarget(TEMPERATURE) - values->getGisteris(TEMPERATURE))) {
                 relays->heatingOn();
             }
         } else {
@@ -63,28 +59,18 @@ void ClimateControl::heating(unsigned long currentMillis) {
         }
     } else if (values->getCurrentValue(TEMPERATURE) >= values->getTarget(TEMPERATURE)) {
         relays->heatingOff();
-
         if (values->getCurrentValue(TEMPERATURE) > values->getTarget(TEMPERATURE) + values->getGisteris(TEMPERATURE)) {
-            //       if (timestamp == 0) {
-            //           timestamp = currentMillis;
-            //        }
-
-            //     if (currentMillis - timestamp >= waitingTime) {
             this->workType = OFF;
-            timestamp = 0;
-            //        }
-            //        if (values->temperature <= values->targetTemperature) {
-            //            timestamp = 0;
-            //         }
         }
     }
 }
 
 
-void ClimateControl::cooling(unsigned long currentMillis) {
+void ClimateControl::cooling() {
     if (values->getCurrentValue(TEMPERATURE) > values->getTarget(TEMPERATURE)) {
         if (workType == COOLING) {
-            if (values->getCurrentValue(TEMPERATURE) > (values->getTarget(TEMPERATURE) + values->getGisteris(TEMPERATURE))) {
+            if (values->getCurrentValue(TEMPERATURE) >
+                (values->getTarget(TEMPERATURE) + values->getGisteris(TEMPERATURE))) {
                 relays->coolingOn();
             }
         } else {
@@ -95,17 +81,15 @@ void ClimateControl::cooling(unsigned long currentMillis) {
         relays->coolingOff();
 
         if (values->getCurrentValue(TEMPERATURE) < values->getTarget(TEMPERATURE) - values->getGisteris(TEMPERATURE)) {
-            // if (timestamp == 0) {
-            //      timestamp = currentMillis;
-            //  }
-
-            //    if (currentMillis - timestamp >= waitingTime) {
             this->workType = OFF;
-            timestamp = 0;
-            //     }
         }
-        //    if (values->temperature >= values->targetTemperature) {
-        //       timestamp = 0;
-        //   }
+    }
+}
+
+void ClimateControl::co2Control() {
+    if (values->getCurrentValue(CO2) > values->getTarget(CO2)) {
+        relays->ventilationOn();
+    } else if (values->getCurrentValue(CO2) < (values->getTarget(CO2) - values->getGisteris(CO2))) {
+        relays->ventilationOff();
     }
 }

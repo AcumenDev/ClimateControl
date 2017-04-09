@@ -4,23 +4,7 @@
 #include "Arduino.h"
 #include "EEPROM.h"
 #include "Value.hpp"
-
-#define TARGET_TEMPERATURE_EEPROM_ADR 0
-#define TARGET_HUMIDITY_EEPROM_ADR 1
-#define TARGET_CO2_EEPROM_ADR 3
-
-#define MIN_TARGET_HUMIDITY 20
-#define MAX_TARGET_HUMIDITY 100
-#define HUMIDITY_GISTERIS 2
-
-#define MIN_TARGET_TEMPERATURE 10
-#define MAX_TARGET_TEMPERATURE 40
-#define TEMPERATURE_GISTERIS 1
-
-#define MIN_TAGET_CO2 300
-#define MAX_TAGET_CO2 1500
-#define CO2_GISTERIS 100
-
+#include "Config.hpp"
 
 enum TYPE_CLIMATE_VALUE {
     TEMPERATURE = 0,

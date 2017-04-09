@@ -15,5 +15,9 @@ class Relays {
     void heatingOff();
     void coolingOn();
     void coolingOff();
+
+    void ventilationOn();
+
+    void ventilationOff();
 };
 #endif
