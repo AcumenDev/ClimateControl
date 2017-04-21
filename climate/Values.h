@@ -6,6 +6,9 @@
 #include "Value.hpp"
 #include "Config.hpp"
 
+#include "DebugUtils.hpp"
+#include "EEPROMUtils.hpp"
+
 enum TYPE_CLIMATE_VALUE {
     TEMPERATURE = 0,
     HUMIDITY = 1,
@@ -22,7 +25,7 @@ public:
 
     unsigned int changeDelay = 1500;
 
-    unsigned char currentSelection = TYPE_CLIMATE_VALUE::TEMPERATURE;
+    int currentSelection = TYPE_CLIMATE_VALUE::TEMPERATURE;
 
     Values() {
         climateValues[TYPE_CLIMATE_VALUE::TEMPERATURE] = new Value(MIN_TARGET_TEMPERATURE, MAX_TARGET_TEMPERATURE,
@@ -30,18 +33,21 @@ public:
         climateValues[TYPE_CLIMATE_VALUE::HUMIDITY] = new Value(MIN_TARGET_HUMIDITY, MAX_TARGET_HUMIDITY,
                                                                 HUMIDITY_GISTERIS);
         climateValues[TYPE_CLIMATE_VALUE::CO2] = new Value(MIN_TAGET_CO2, MAX_TAGET_CO2, CO2_GISTERIS);
-
     }
 
     void loadFromEEprom() {
         climateValues[TYPE_CLIMATE_VALUE::TEMPERATURE]->setTarget((int) EEPROM.read(TARGET_TEMPERATURE_EEPROM_ADR));
         climateValues[TYPE_CLIMATE_VALUE::HUMIDITY]->setTarget((int) EEPROM.read(TARGET_HUMIDITY_EEPROM_ADR));
-        //   climateValues[TYPE_CLIMATE_VALUE::CO2].setTarget((int) EEPROM.read(TARGET_CO2_EEPROM_ADR)); ///// FIXME Не прочтет так как 2 байта
+
+        int co2eepromValue;
+        EEPROM_readAnything(TARGET_CO2_EEPROM_ADR, co2eepromValue);
+        climateValues[TYPE_CLIMATE_VALUE::CO2]->setTarget(co2eepromValue);
     }
 
-    void saveToEEprom() { //// FIXME Не прочтет так как 2 байта
-        //  EEPROM.update(TARGET_TEMPERATURE_EEPROM_ADR, (byte) targetTemperature);
-        //   EEPROM.update(TARGET_HUMIDITY_EEPROM_ADR, (byte) targetHumidity);
+    void saveToEEprom() {
+        EEPROM_writeAnything(TARGET_TEMPERATURE_EEPROM_ADR,climateValues[TYPE_CLIMATE_VALUE::TEMPERATURE]->getTarget());
+        EEPROM_writeAnything(TARGET_HUMIDITY_EEPROM_ADR,climateValues[TYPE_CLIMATE_VALUE::HUMIDITY]->getTarget());
+        EEPROM_writeAnything(TARGET_CO2_EEPROM_ADR,climateValues[TYPE_CLIMATE_VALUE::CO2]->getTarget());
     }
 
     bool isAfterChange(unsigned long currentMillis) {
@@ -66,6 +72,9 @@ public:
             currentSelection = TYPE_CLIMATE_VALUE::TEMPERATURE;
         }
         setTimestamp(currentMillis);
+        DEBUG_PRINT("select: ");
+        DEBUG_PRINT(currentSelection);
+
     }
 
     void plus(unsigned long currentMillis) {
@@ -79,15 +88,15 @@ public:
     }
 
     int getTarget(TYPE_CLIMATE_VALUE climateValue) {
-        climateValues[climateValue]->getTarget();
+        return climateValues[climateValue]->getTarget();
     }
 
     int getGisteris(TYPE_CLIMATE_VALUE climateValue) {
-        climateValues[climateValue]->getGisteris();
+        return climateValues[climateValue]->getGisteris();
     }
 
     float getCurrentValue(TYPE_CLIMATE_VALUE climateValue) {
-        climateValues[climateValue]->getCurrent();
+        return climateValues[climateValue]->getCurrent();
     }
 
 

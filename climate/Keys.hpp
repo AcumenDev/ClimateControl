@@ -4,6 +4,7 @@
 #include "Arduino.h"
 #include "inttypes.h"
 #include "Button.hpp"
+#include "DebugUtils.hpp"
 
 class Keys {
     Values * values;

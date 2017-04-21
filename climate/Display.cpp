@@ -1,87 +1,81 @@
 #include "Display.hpp"
 
-Display::Display(char displayDataPin, char displayClkPin, char displayCsPin, int intervalChange, int interval,
-                 Values *values)
+Display::Display(char dataPin, char clkPin, char csPin, int intervalChange, int interval, Values *values)
         : IntervalWorckerBase(interval) {
-    this->displayDataPin = displayDataPin;
-    this->displayClkPin = displayClkPin;
-    this->displayCsPin = displayCsPin;
     this->intervalChange = intervalChange;
     this->values = values;
-    this->ledControl = new LedControl(displayDataPin, displayClkPin, displayCsPin);
+    this->ledControl = new LedControl(dataPin, clkPin, csPin, 2);
 
-    reInitDisplay();
+    initDisplay(0);
+    initDisplay(1);
 }
 
 void Display::update(unsigned long currentMillis) {
-
     if (values->isAfterChange(currentMillis)) {
         if (!isWorkTime(currentMillis, intervalChange)) {
             return;
         }
-        reInitDisplay();
-        showTemp(values->getTarget(TYPE_CLIMATE_VALUE::TEMPERATURE));
-        showHeating(values->getTarget(TYPE_CLIMATE_VALUE::HUMIDITY));
+        ledControl->clearDisplay(0);
+        ledControl->clearDisplay(1);
+        showTemp(0, values->getTarget(TYPE_CLIMATE_VALUE::TEMPERATURE));
+        showHeating(0, values->getTarget(TYPE_CLIMATE_VALUE::HUMIDITY));
+        showCO2(1, values->getTarget(TYPE_CLIMATE_VALUE::CO2));
     } else {
         if (!isWorkTime(currentMillis)) {
             return;
         }
-        reInitDisplay();
-        showTemp(values->getCurrentValue(TYPE_CLIMATE_VALUE::TEMPERATURE));
-        showHeating(values->getCurrentValue(TYPE_CLIMATE_VALUE::HUMIDITY));
+        ledControl->clearDisplay(0);
+        ledControl->clearDisplay(1);
+        showTemp(0, values->getCurrentValue(TYPE_CLIMATE_VALUE::TEMPERATURE));
+        showHeating(0, values->getCurrentValue(TYPE_CLIMATE_VALUE::HUMIDITY));
+        showCO2(1, values->getCurrentValue(TYPE_CLIMATE_VALUE::CO2));
         values->changeTimeStamp = 0;
     }
 }
 
-void Display::showTemp(float temp) {
-    showNumber(temp, 8);
+void Display::showTemp(int deviceNumb, float temp) {
+    showNumber(deviceNumb, temp, 8);
 }
 
-void Display::showHeating(float heating) {
-    showNumber(heating, 4);
+void Display::showHeating(int deviceNumb, float heating) {
+    showNumber(deviceNumb, heating, 4);
 }
 
-void Display::reInitDisplay() {
-    ledControl->shutdown(0, false);
-    ledControl->setScanLimit(0, 8);
-    ledControl->setIntensity(0, 15);
-    ledControl->clearDisplay(0);
+void Display::initDisplay(int deviceNumb) {
+    ledControl->shutdown(deviceNumb, false);
+    ledControl->setScanLimit(deviceNumb, 8);
+    ledControl->setIntensity(deviceNumb, 15);
 }
 
-void Display::showNumber(float number, int startDig) {
-    if (number == 0) {
-        showDigit(0, startDig - 3, false); // отображаем 0 в правом разряде
+void Display::showNumber(int deviceNumb, float number, int startPos, int size,
+                         int precision) { ////todo дописать чтобы 0 красиво отображался у float 00.0 сейчас 0
+    startPos -= size;
+    int operateNumb;
+    if (precision > 0) {
+        operateNumb = (int) (number * (10 * precision));
     } else {
-        // отображаем значение, соответствующее каждой цифре
-        // крайняя левая цифра 0, правая на единицу меньше, чем число позиций
-
-        showDigit((int) number % 10, startDig - 2, true);
-        int nextNumber = (int) number / 10;
-
-        int i = nextNumber % 10;
-        if (i > 0) {
-            showDigit(nextNumber % 10, startDig - 1, false);
-        }
-
-
-        int dec = 0;
-        if (number > 1) {
-            dec = (int) ((number - (int) number) * 10);
-        } else {
-            dec = (int) (number * 10.0f);
-        }
-        showDigit(dec, startDig - 3, false);
+        operateNumb = (int) (number);
+        precision = -1;
     }
+    int dot = 0;
+    do {
+        showDigit(deviceNumb, (byte) (operateNumb % 10), startPos, dot == precision);
+        operateNumb /= 10;
+        startPos++;
+        dot++;
+    } while (operateNumb > 0);
+
+    return;
 }
 
 // Отображаем заданное число на данном разряде 7-сегментного индикатора
-void Display::showDigit(int oneNumber, int digit, bool dot) {
-
-    ledControl->setDigit(0, digit, oneNumber, dot);
+void Display::showDigit(int deviceNumb, byte oneNumber, int pos, bool dot) {
+    ledControl->setDigit(deviceNumb, pos, oneNumber, dot);
 }
 
-
-
-
-
-
+void Display::showCO2(int displayNum, float value) {
+    if (value > 999) {
+        value = 999;
+    }
+    showNumber(displayNum, value, 4, 3, 0);
+}

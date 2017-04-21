@@ -1,4 +1,4 @@
-#define DEBUG
+#define CLIMATE_DEBUG
 
 #define DISPLAY_CS_PIN 13
 #define DISPLAY_CLK_PIN 12

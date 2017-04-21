@@ -3,7 +3,7 @@ project(test_climate)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lstdc++")
 
-#add_definitions(-DDEBUG)
+#add_definitions(-DDEBUG -DCLIMATE_DEBUG)
 include_directories(BEFORE stub)
 
 set(HEADER_FILES_CLIMATE
@@ -40,5 +40,5 @@ set(SOURCE_FILES_CLIMATE
         ../climate/Relays.cpp
         ../climate/IntervalWorckerBase.cpp)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp ../climate/DebugUtils.hpp)
 add_executable(test_climate ${SOURCE_FILES} ${SOURCE_FILES_CLIMATE} ${SOURCE_FILES_CLIMATE})

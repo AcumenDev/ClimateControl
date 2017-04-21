@@ -17,13 +17,7 @@ void ClimateControl::update(unsigned long currentMillis) {
     co2Control();
 }
 
-void ClimateControl::humidityControl() {
-    if (values->getCurrentValue(HUMIDITY) < values->getTarget(HUMIDITY) - values->getGisteris(HUMIDITY)) {
-        relays->humidificationOn();
-    } else if (values->getCurrentValue(HUMIDITY) >= values->getTarget(HUMIDITY)) {
-        relays->humidificationOff();
-    }
-}
+
 
 void ClimateControl::temperatureControl() {
     switch (workType) {
@@ -85,6 +79,16 @@ void ClimateControl::cooling() {
         }
     }
 }
+
+
+void ClimateControl::humidityControl() {
+    if (values->getCurrentValue(HUMIDITY) < values->getTarget(HUMIDITY) - values->getGisteris(HUMIDITY)) {
+        relays->humidificationOn();
+    } else if (values->getCurrentValue(HUMIDITY) >= values->getTarget(HUMIDITY)) {
+        relays->humidificationOff();
+    }
+}
+
 
 void ClimateControl::co2Control() {
     if (values->getCurrentValue(CO2) > values->getTarget(CO2)) {

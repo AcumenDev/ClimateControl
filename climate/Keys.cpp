@@ -21,14 +21,17 @@ void Keys::update(unsigned long currentMillis) {
     buttonMinus->update(currentMillis);
 
     if (buttonSelect->isPressed()) {
+       // Utils::log("sel");
         values->changeSelection(currentMillis);
     }
 
     if (buttonMinus->isPressed()) {
+        DEBUG_PRINT("-");
         values->minus(currentMillis);
     }
 
     if (buttonPlus->isPressed()) {
+        DEBUG_PRINT("+");
         values->plus(currentMillis);
     }
 }

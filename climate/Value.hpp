@@ -13,6 +13,7 @@ public:
         this->minTarget = minTarget;
         this->maxTarget = maxTarget;
         this->gisteris = gisteris;
+        target = minTarget + ((maxTarget - minTarget) / 2);
     }
 
     void plus(unsigned long currentMillis) {
@@ -31,7 +32,11 @@ public:
 
     float getCurrent() { return current; }
 
-    void setTarget(int target) { this->target = target; }
+    void setTarget(int target) {
+        if (target >= minTarget && target <= maxTarget) {
+            this->target = target;
+        }
+    }
 
     void setCurrent(float current) { this->current = current; }
 

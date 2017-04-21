@@ -9,28 +9,26 @@
 
 class Display : public IntervalWorckerBase {
     Values *values;
-    char displayDataPin;
-    char displayClkPin;
-    char displayCsPin;
     LedControl *ledControl;
-    float i = 0;
     int intervalChange;
-    int intervalInner;
+
 public:
-    Display(char displayDataPin, char displayClkPin, char displayCsPin, int intervalChange, int interval,
-            Values *values);
+    Display(char dataPin, char clkPin, char csPin, int intervalChange, int interval, Values *values);
 
     void update(unsigned long currentMillis);
 
-    void showTemp(float temp);
+    void showTemp(int deviceNumb, float temp);
 
-    void showHeating(float number);
+    void showHeating(int deviceNumb, float number);
 
 private:
-    void reInitDisplay();
-    void showNumber(float number, int startDig);
+    void initDisplay(int deviceNumb);
 
-    void showDigit(int number, int digit, bool dot);
+    void showNumber(int deviceNumb, float number, int startPos, int size = 3, int precision = 1);
+
+    void showDigit(int deviceNumb, byte number, int pos, bool dot);
+
+    void showCO2(int displayNum, float value);
 };
 
 #endif //DISPLAY_H

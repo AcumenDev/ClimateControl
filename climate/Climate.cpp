@@ -41,6 +41,8 @@ void Climate::loop(unsigned long currentMillis) {
     //  Serial.print(" H: ");
     Serial.print("\t");
     Serial.print(values->getCurrentValue(TYPE_CLIMATE_VALUE::HUMIDITY));
+    Serial.print("\t");
+    Serial.print((int)values->getCurrentValue(TYPE_CLIMATE_VALUE::CO2));
     //  Serial.print(" set:");
     //  Serial.print(" T: ");
     Serial.print("\t");
@@ -48,6 +50,8 @@ void Climate::loop(unsigned long currentMillis) {
     //  Serial.print(" H: ");
     Serial.print("\t");
     Serial.print(values->getTarget(TYPE_CLIMATE_VALUE::HUMIDITY));
+    Serial.print("\t");
+    Serial.print((int)values->getTarget(TYPE_CLIMATE_VALUE::CO2));
     Serial.print("\t");
     //  Serial.print(" relays:");
 
