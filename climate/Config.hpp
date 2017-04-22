@@ -1,10 +1,16 @@
 #define CLIMATE_DEBUG
 
-#define DISPLAY_CS_PIN 13
-#define DISPLAY_CLK_PIN 12
-#define DISPLAY_DATA_PIN 11
+#define DISPLAY_CS_PIN A2
+#define DISPLAY_CLK_PIN A1
+#define DISPLAY_DATA_PIN A0
 
 #define SENSOR_PIN 10
+
+
+#define CO2_TX_PIN 8 ///FIXME Определиться с пинами!!!!
+#define CO2_RX_PIN 9
+
+
 
 #define HUMIDIFICATION_RELAY_PIN 9
 #define HEATING_RELAY_PIN 8
@@ -13,9 +19,6 @@
 #define BUTTON_SELECT_PIN 4
 #define BUTTON_PLUS_PIN 3
 #define BUTTON_MINUS_PIN 2
-
-
-
 
 
 

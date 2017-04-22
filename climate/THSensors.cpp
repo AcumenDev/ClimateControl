@@ -1,6 +1,6 @@
-#include "Sensors.hpp"
+#include "THSensors.hpp"
 
-Sensors::Sensors(uint8_t sensorPin, int interval, Values *values)
+THSensors::THSensors(uint8_t sensorPin, int interval, Values *values)
         : IntervalWorckerBase(interval) {
     this->values = values;
     dht = new DHT(sensorPin, DHT22);
@@ -10,20 +10,12 @@ Sensors::Sensors(uint8_t sensorPin, int interval, Values *values)
     }
 }
 
-void Sensors::update(unsigned long currentMillis) {
-    if (!isWorkTime(currentMillis)) {
-        return;
-    }
-
+void THSensors::work(unsigned long currentMillis) {
     values->setCurrentValue(HUMIDITY, _getHumidity(dht->readHumidity()));
     values->setCurrentValue(TEMPERATURE, _getTemperature(dht->readTemperature()));
-
-#ifdef DEBUG
-
-#endif
 }
 
-float Sensors::_getTemperature(float currentTemperature) {
+float THSensors::_getTemperature(float currentTemperature) {
     temperatureValuesTick[temperatureIndexStack] = currentTemperature;
     if (temperatureIndexStack == ARITHMETIC_SUM_SIZE - 1) {
         temperatureIndexStack = 0;
@@ -45,7 +37,7 @@ float Sensors::_getTemperature(float currentTemperature) {
     return temperatureSum / count;
 }
 
-float Sensors::_getHumidity(float currentHumidity) {
+float THSensors::_getHumidity(float currentHumidity) {
     humidityValuesTick[humidityIndexStack] = currentHumidity;
     if (humidityIndexStack == ARITHMETIC_SUM_SIZE - 1) {
         humidityIndexStack = 0;

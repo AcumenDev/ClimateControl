@@ -7,7 +7,7 @@
 
 #define ARITHMETIC_SUM_SIZE 10
 
-class Sensors : public IntervalWorckerBase {
+class THSensors : public IntervalWorckerBase {
     DHT *dht;
     Values *values;
 
@@ -22,9 +22,9 @@ class Sensors : public IntervalWorckerBase {
 
 public:
 
-    Sensors(uint8_t sensorPin, int interval, Values *values);
+    THSensors(uint8_t sensorPin, int interval, Values *values);
 
-    void update(unsigned long currentMillis);
+    void work(unsigned long currentMillis);
 
 };
 

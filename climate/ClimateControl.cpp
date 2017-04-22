@@ -7,17 +7,11 @@ ClimateControl::ClimateControl(Values *values, Relays *relays, int interval)
     this->workType = OFF;
 }
 
-void ClimateControl::update(unsigned long currentMillis) {
-    if (!isWorkTime(currentMillis)) {
-        return;
-    }
-
+void ClimateControl::work(unsigned long currentMillis) {
     temperatureControl();
     humidityControl();
     co2Control();
 }
-
-
 
 void ClimateControl::temperatureControl() {
     switch (workType) {

@@ -5,52 +5,24 @@
 #ifndef TEST_CLIMATE_DEBUGUTILS_HPP
 #define TEST_CLIMATE_DEBUGUTILS_HPP
 
-// Define where debug output will be printed.
 #define DEBUG_PRINTER Serial
 
-// Setup debug printing macros.
 #ifdef CLIMATE_DEBUG
-  #define DEBUG_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
-  #define DEBUG_PRINTLN(...) { DEBUG_PRINTER.println(__VA_ARGS__); }
+#define DEBUG_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
+#define DEBUG_PRINTLN(...) { DEBUG_PRINTER.println(__VA_ARGS__); }
 #else
 #define DEBUG_PRINT(...) {}
 #define DEBUG_PRINTLN(...) {}
 #endif
 
-
-
-/*class Utils {
+class DebugUtils {
 public:
-    static void log(const char msg[]) {
-#ifdef DEBUG
-        Serial.println(msg);
-#endif
+    static int getfreeRam() {
+        extern int __heap_start, *__brkval;
+        int v;
+        return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
     }
+};
 
-    static void log(char msg) {
-#ifdef DEBUG
-        Serial.print(msg);
-#endif
-    }
-
-    static void log(int msg) {
-#ifdef DEBUG
-        Serial.print(msg);
-#endif
-    }
-
-    static void log(double msg) {
-#ifdef DEBUG
-        Serial.print(msg);
-#endif
-    }
-
-
-    static void log(unsigned long msg) {
-#ifdef DEBUG
-        Serial.print(msg);
-#endif
-    }
-};*/
 
 #endif //TEST_CLIMATE_DEBUGUTILS_HPP

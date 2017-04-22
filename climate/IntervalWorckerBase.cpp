@@ -1,20 +1,21 @@
 #include "IntervalWorkerBase.hpp"
+#include "TimeUtils.hpp"
 
 IntervalWorckerBase::IntervalWorckerBase(int interval) {
     this->_interval = interval;
 }
 
 bool IntervalWorckerBase::isWorkTime(unsigned long currentMillis) {
-    return isWorkTime(currentMillis, _interval);
+    return TimeUtils::isWorkTime(_prev_ms, currentMillis, _interval);
 }
 
 bool IntervalWorckerBase::isWorkTime(unsigned long currentMillis, int interval) {
-    if (currentMillis < _prev_ms) {//проверка обнуления миллисекунд раз в 50 дней
+    return TimeUtils::isWorkTime(_prev_ms, currentMillis, interval);
+}
+
+void IntervalWorckerBase::update(unsigned long currentMillis) {
+    if (isWorkTime(currentMillis)) {
+        work(currentMillis);
         _prev_ms = currentMillis;
     }
-    if ((currentMillis - _prev_ms) >= interval) {
-        _prev_ms = currentMillis;
-        return true;
-    }
-    return false;
 }

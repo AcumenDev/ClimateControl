@@ -22,13 +22,14 @@ public:
     void showHeating(int deviceNumb, float number);
 
 private:
-    void initDisplay(int deviceNumb);
 
     void showNumber(int deviceNumb, float number, int startPos, int size = 3, int precision = 1);
 
     void showDigit(int deviceNumb, byte number, int pos, bool dot);
 
     void showCO2(int displayNum, float value);
+
+    void initDisplay(int deviceNumb, int scanLimit);
 };
 
 #endif //DISPLAY_H

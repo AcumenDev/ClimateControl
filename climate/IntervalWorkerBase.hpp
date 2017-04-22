@@ -9,8 +9,13 @@ class IntervalWorckerBase {
 public:
     IntervalWorckerBase(int interval);
 
+    virtual void work(unsigned long currentMillis) {};
+
     bool isWorkTime(unsigned long currentMillis);
+
     bool isWorkTime(unsigned long currentMillis, int interval);
+
+    virtual void update(unsigned long currentMillis);
 };
 
 #endif //DISPLAY_H

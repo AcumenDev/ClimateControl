@@ -18,7 +18,7 @@ class ClimateControl : public IntervalWorckerBase {
 public:
     ClimateControl(Values *values, Relays *relays, int interval);
 
-    void update(unsigned long currentMillis);
+    void work(unsigned long currentMillis);
 
 private:
     void temperatureControl();

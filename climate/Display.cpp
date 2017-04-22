@@ -6,28 +6,29 @@ Display::Display(char dataPin, char clkPin, char csPin, int intervalChange, int 
     this->values = values;
     this->ledControl = new LedControl(dataPin, clkPin, csPin, 2);
 
-    initDisplay(0);
-    initDisplay(1);
+    initDisplay(0,8);
+    initDisplay(1,4);
 }
 
 void Display::update(unsigned long currentMillis) {
-    if (values->isAfterChange(currentMillis)) {
+    if (values->isAfterChange(currentMillis)) { ////TODO Надо подписаться на событые изменения
         if (!isWorkTime(currentMillis, intervalChange)) {
             return;
         }
         ledControl->clearDisplay(0);
-        ledControl->clearDisplay(1);
         showTemp(0, values->getTarget(TYPE_CLIMATE_VALUE::TEMPERATURE));
         showHeating(0, values->getTarget(TYPE_CLIMATE_VALUE::HUMIDITY));
+        ledControl->clearDisplay(1);
         showCO2(1, values->getTarget(TYPE_CLIMATE_VALUE::CO2));
     } else {
         if (!isWorkTime(currentMillis)) {
             return;
         }
         ledControl->clearDisplay(0);
-        ledControl->clearDisplay(1);
+
         showTemp(0, values->getCurrentValue(TYPE_CLIMATE_VALUE::TEMPERATURE));
         showHeating(0, values->getCurrentValue(TYPE_CLIMATE_VALUE::HUMIDITY));
+        ledControl->clearDisplay(1);
         showCO2(1, values->getCurrentValue(TYPE_CLIMATE_VALUE::CO2));
         values->changeTimeStamp = 0;
     }
@@ -41,9 +42,9 @@ void Display::showHeating(int deviceNumb, float heating) {
     showNumber(deviceNumb, heating, 4);
 }
 
-void Display::initDisplay(int deviceNumb) {
+void Display::initDisplay(int deviceNumb,int scanLimit) {
     ledControl->shutdown(deviceNumb, false);
-    ledControl->setScanLimit(deviceNumb, 8);
+    ledControl->setScanLimit(deviceNumb, scanLimit);
     ledControl->setIntensity(deviceNumb, 15);
 }
 

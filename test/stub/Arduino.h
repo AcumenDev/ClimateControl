@@ -12,6 +12,11 @@
 #include "HardwareSerial.hpp"
 #include "../../climate/Config.hpp"
 
+
+#define A2 22
+#define A1 22
+#define A0 22
+
 typedef uint8_t byte;
 typedef bool boolean;
 #define HIGH 0x1
@@ -22,6 +27,7 @@ typedef bool boolean;
 #define INPUT_PULLUP 0x2
 
 unsigned long millis();
+
 
 int digitalRead(int pin);
 

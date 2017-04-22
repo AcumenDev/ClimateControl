@@ -2,6 +2,9 @@
 
 
 bool pins[20];
+unsigned int __heap_start;
+void *__brkval;
+
 
 unsigned long millis() {
     return 0;

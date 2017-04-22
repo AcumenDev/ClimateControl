@@ -95,7 +95,7 @@ public:
         return climateValues[climateValue]->getGisteris();
     }
 
-    float getCurrentValue(TYPE_CLIMATE_VALUE climateValue) {
+    const float& getCurrentValue(TYPE_CLIMATE_VALUE climateValue) {
         return climateValues[climateValue]->getCurrent();
     }
 

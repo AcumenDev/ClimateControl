@@ -30,7 +30,7 @@ public:
 
     int getTarget() { return target; }
 
-    float getCurrent() { return current; }
+    const float& getCurrent() { return current; }
 
     void setTarget(int target) {
         if (target >= minTarget && target <= maxTarget) {
