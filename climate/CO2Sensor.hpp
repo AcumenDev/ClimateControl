@@ -13,16 +13,16 @@
 class CO2Sensor : public IntervalWorckerBase {
     SoftwareSerial *serial;
     byte readCO2Command[9] = {0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79};
-    Values *values;
+
     unsigned char response[9];
 
     float _getCO2();
 
 public:
 
-    CO2Sensor(uint8_t sensorTXPin, uint8_t sensorRXPin, int interval, Values *values);
+    CO2Sensor(uint8_t sensorTXPin, uint8_t sensorRXPin, int interval);
 
-    void work(unsigned long currentMillis);
+    void work(Values *values, unsigned long currentMillis);
 
 };
 

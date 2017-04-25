@@ -45,9 +45,10 @@ public:
     }
 
     void saveToEEprom() {
-        EEPROM_writeAnything(TARGET_TEMPERATURE_EEPROM_ADR,climateValues[TYPE_CLIMATE_VALUE::TEMPERATURE]->getTarget());
-        EEPROM_writeAnything(TARGET_HUMIDITY_EEPROM_ADR,climateValues[TYPE_CLIMATE_VALUE::HUMIDITY]->getTarget());
-        EEPROM_writeAnything(TARGET_CO2_EEPROM_ADR,climateValues[TYPE_CLIMATE_VALUE::CO2]->getTarget());
+        EEPROM_writeAnything(TARGET_TEMPERATURE_EEPROM_ADR,
+                             climateValues[TYPE_CLIMATE_VALUE::TEMPERATURE]->getTarget());
+        EEPROM_writeAnything(TARGET_HUMIDITY_EEPROM_ADR, climateValues[TYPE_CLIMATE_VALUE::HUMIDITY]->getTarget());
+        EEPROM_writeAnything(TARGET_CO2_EEPROM_ADR, climateValues[TYPE_CLIMATE_VALUE::CO2]->getTarget());
     }
 
     bool isAfterChange(unsigned long currentMillis) {
@@ -95,10 +96,9 @@ public:
         return climateValues[climateValue]->getGisteris();
     }
 
-    const float& getCurrentValue(TYPE_CLIMATE_VALUE climateValue) {
+    const float &getCurrentValue(TYPE_CLIMATE_VALUE climateValue) {
         return climateValues[climateValue]->getCurrent();
     }
-
 
     void setTarget(TYPE_CLIMATE_VALUE climateValue, int target) {
         climateValues[climateValue]->setTarget(target);
@@ -108,6 +108,13 @@ public:
         climateValues[climateValue]->setCurrent(value);
     }
 
+    void setOutputValue(TYPE_CLIMATE_VALUE climateValue, float value) {
+        climateValues[climateValue]->setOutput(value);
+    }
+
+    int getOutputValue(TYPE_CLIMATE_VALUE climateValue) {
+        return climateValues[climateValue]->getOutput();
+    }
 
 private:
     void setTimestamp(unsigned long currentMillis) {

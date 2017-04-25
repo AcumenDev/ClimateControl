@@ -7,6 +7,7 @@ class Value {
     int target;
     int maxTarget;
     int minTarget;
+    int output;
     float gisteris = 1;
 public:
     Value(int minTarget, int maxTarget, float gisteris) {
@@ -30,7 +31,7 @@ public:
 
     int getTarget() { return target; }
 
-    const float& getCurrent() { return current; }
+    const float &getCurrent() { return current; }
 
     void setTarget(int target) {
         if (target >= minTarget && target <= maxTarget) {
@@ -41,6 +42,10 @@ public:
     void setCurrent(float current) { this->current = current; }
 
     float getGisteris() { return this->gisteris; }
+
+    void setOutput(int value) { this->output = value; }
+
+    int getOutput() { return output; }
 };
 
 #endif

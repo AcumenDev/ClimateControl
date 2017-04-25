@@ -11,9 +11,9 @@ Climate climate;
 
 int main() {
     //cout << "Start!" << endl;
-    freopen("output", "w", stdout);
+    // freopen("output", "w", stdout);
     cout <<
-         "currentSeconds\ttemperature\thumidity\ttargetTemperature\ttargetHumidity\thumidification_relay\theating_relay\tcooling_relay"
+         "sec\ttCurrent\ttTarget\ttOutput\thCurrent\thTarget\thOutput\tcCurrent\tcTarget\tcOutput\th_relay\theating_relay\tcooling_relay"
          <<
          endl;
     climate.setup();
@@ -26,14 +26,14 @@ int main() {
     unsigned long currentMillis = 0;
     startTime = 0;
     while (state) {
-        if (currentMillis/1000 >= daySeconds * 1) {
+        if (currentMillis / 1000 >= daySeconds * 1) {
             break;
         }
         currentSeconds = duration_cast<milliseconds>(
                 system_clock::now().time_since_epoch()
         ).count() / 1000;
         // currentMillisFast =currentSeconds;
-
+        if (currentMillis/1000 >= 2560) { break; }
         climate.loop(currentMillis);
         // updateTemp(currentMillisFast);
         changeService->update(currentMillis);

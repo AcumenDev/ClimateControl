@@ -4,43 +4,47 @@
 
 #include "Monitoring.hpp"
 
-Monitoring::Monitoring(Values *values, int interval) : IntervalWorckerBase(interval) {
-    this->values = values;
+Monitoring::Monitoring(int interval) : IntervalWorckerBase(interval) {}
 
-}
-
-void Monitoring::work(unsigned long currentMillis) {
+void Monitoring::work(Values *values, unsigned long currentMillis) {
     Serial.print(currentMillis / 1000);
     Serial.print("\t");
     //  Serial.print(" T: ");
     Serial.print(values->getCurrentValue(TYPE_CLIMATE_VALUE::TEMPERATURE));
+    Serial.print("\t");
+    Serial.print(values->getTarget(TYPE_CLIMATE_VALUE::TEMPERATURE));
+    Serial.print("\t");
+    Serial.print(values->getOutputValue(TYPE_CLIMATE_VALUE::TEMPERATURE));
+
+
     //  Serial.print(" H: ");
     Serial.print("\t");
     Serial.print(values->getCurrentValue(TYPE_CLIMATE_VALUE::HUMIDITY));
     Serial.print("\t");
-    Serial.print((int) values->getCurrentValue(TYPE_CLIMATE_VALUE::CO2));
-    //  Serial.print(" set:");
-    //  Serial.print(" T: ");
-    Serial.print("\t");
-    Serial.print(values->getTarget(TYPE_CLIMATE_VALUE::TEMPERATURE));
-    //  Serial.print(" H: ");
-    Serial.print("\t");
     Serial.print(values->getTarget(TYPE_CLIMATE_VALUE::HUMIDITY));
     Serial.print("\t");
-    Serial.print((int) values->getTarget(TYPE_CLIMATE_VALUE::CO2));
+    Serial.print(values->getOutputValue(TYPE_CLIMATE_VALUE::HUMIDITY));
+
+
     Serial.print("\t");
+    Serial.print(values->getCurrentValue(TYPE_CLIMATE_VALUE::CO2));
+    Serial.print("\t");
+    Serial.print(values->getTarget(TYPE_CLIMATE_VALUE::CO2));
+    Serial.print("\t");
+    Serial.print(values->getOutputValue(TYPE_CLIMATE_VALUE::CO2));
+
+
     //  Serial.print(" relays:");
 
-    //  Serial.print(" HU: ");
+    Serial.print("\t");
     Serial.print(!digitalRead(HUMIDIFICATION_RELAY_PIN));
-    //  Serial.print(" H: ");
+
     Serial.print("\t");
     Serial.print(!digitalRead(HEATING_RELAY_PIN));
-    //  Serial.print(" C: ");
     Serial.print("\t");
     Serial.print(!digitalRead(COOLING_RELAY_PIN));
-    Serial.print("\t");
-    Serial.print(DebugUtils::getfreeRam());
+    /* Serial.print("\t");
+     Serial.print(DebugUtils::getfreeRam());*/
     Serial.print("\n");
     Serial.flush();
 }

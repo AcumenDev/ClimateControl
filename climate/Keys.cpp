@@ -1,7 +1,7 @@
 #include "Keys.hpp"
 
-Keys::Keys(uint8_t buttonSelectPin, uint8_t buttonPlusPin,  uint8_t buttonMinusPin, Values *values) {
-    this->values = values;
+Keys::Keys(uint8_t buttonSelectPin, uint8_t buttonPlusPin, uint8_t buttonMinusPin) {
+
     this->buttonSelectPin = buttonSelectPin;
     this->buttonPlusPin = buttonPlusPin;
     this->buttonMinusPin = buttonMinusPin;
@@ -15,13 +15,13 @@ Keys::Keys(uint8_t buttonSelectPin, uint8_t buttonPlusPin,  uint8_t buttonMinusP
     buttonMinus = new Button(buttonMinusPin);
 }
 
-void Keys::update(unsigned long currentMillis) {
+void Keys::update(Values *values, unsigned long currentMillis) {
     buttonSelect->update(currentMillis);
     buttonPlus->update(currentMillis);
     buttonMinus->update(currentMillis);
 
     if (buttonSelect->isPressed()) {
-       // Utils::log("sel");
+        // Utils::log("sel");
         values->changeSelection(currentMillis);
     }
 
@@ -35,7 +35,3 @@ void Keys::update(unsigned long currentMillis) {
         values->plus(currentMillis);
     }
 }
-
-void Keys::check_key() { }
-
-

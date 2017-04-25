@@ -16,7 +16,7 @@ set(HEADER_FILES_CLIMATE
         stub/HardwareSerial.hpp
         ../climate/THSensors.hpp
         ../climate/Button.hpp
-        ../climate/ClimateControl.hpp
+        ../climate/TemperatureControl.hpp
         ../climate/Display.hpp
         ../climate/Keys.hpp
         ../climate/Climate.hpp
@@ -38,14 +38,14 @@ set(SOURCE_FILES_CLIMATE
         stub/HardwareSerial.cpp
         ../climate/THSensors.cpp
         ../climate/Button.cpp
-        ../climate/ClimateControl.cpp
+        ../climate/TemperatureControl.cpp
         ../climate/Display.cpp
         ../climate/Keys.cpp
         ../climate/Climate.cpp
         ../climate/Relays.cpp
         ../climate/IntervalWorckerBase.cpp
         ../climate/CO2Sensor.cpp
-        ../climate/Monitoring.cpp ../climate/CO2Control.cpp ../climate/CO2Control.hpp)
+        ../climate/Monitoring.cpp ../climate/CO2Control.cpp ../climate/CO2Control.hpp ../climate/HumidityControl.cpp ../climate/HumidityControl.hpp)
 
 set(SOURCE_FILES main.cpp)
 add_executable(test_climate ${SOURCE_FILES} ${SOURCE_FILES_CLIMATE} ${SOURCE_FILES_CLIMATE})

@@ -10,10 +10,10 @@
 
 class Monitoring : public IntervalWorckerBase {
 public:
-    Monitoring(Values *values, int interval);
+    Monitoring(int interval);
 
 private:
-    void work(unsigned long currentMillis) override;
+    void work(Values *values, unsigned long currentMillis) override;
 
     Values *values;
 };

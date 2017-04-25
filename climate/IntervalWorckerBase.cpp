@@ -1,5 +1,5 @@
 #include "IntervalWorkerBase.hpp"
-#include "TimeUtils.hpp"
+
 
 IntervalWorckerBase::IntervalWorckerBase(int interval) {
     this->_interval = interval;
@@ -13,9 +13,10 @@ bool IntervalWorckerBase::isWorkTime(unsigned long currentMillis, int interval) 
     return TimeUtils::isWorkTime(_prev_ms, currentMillis, interval);
 }
 
-void IntervalWorckerBase::update(unsigned long currentMillis) {
+
+void IntervalWorckerBase::update(Values *values, unsigned long currentMillis) {
     if (isWorkTime(currentMillis)) {
-        work(currentMillis);
+        work(values, currentMillis);
         _prev_ms = currentMillis;
     }
 }

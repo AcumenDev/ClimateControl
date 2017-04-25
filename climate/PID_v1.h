@@ -43,7 +43,6 @@ public:
         SetControllerDirection(ControllerDirection);
         SetTunings(Kp, Ki, Kd);
 
-        lastTime = millis() - SampleTime;
         Initialize();
     }
 
@@ -51,34 +50,28 @@ public:
     /* Compute() **********************************************************************
      *     This, as they say, is where the magic happens.  this function should be called
      *   every time "void loop()" executes.  the function will decide for itself whether a new
-     *   pid Output needs to be computed.  returns true when the output is computed,
-     *   false when nothing has been done.
+     *   pid Output needs to be computed.
      **********************************************************************************/
-    bool Compute() {
-        if (!inAuto) return false;
-        unsigned long now = millis();
-        unsigned long timeChange = (now - lastTime);
-        if (timeChange >= SampleTime) {
-            /*Compute all the working error variables*/
-            T input = *myInput;
-            T error = *mySetpoint - input;
-            ITerm += (ki * error);
-            if (ITerm > outMax) ITerm = outMax;
-            else if (ITerm < outMin) ITerm = outMin;
-            T dInput = (input - lastInput);
+    void Compute() {
+        if (!inAuto) { return; }
 
-            /*Compute PIDT Output*/
-            T output = kp * error + ITerm - kd * dInput;
+        /*Compute all the working error variables*/
+        T input = *myInput;
+        T error = *mySetpoint - input;
+        ITerm += (ki * error);
+        if (ITerm > outMax) ITerm = outMax;
+        else if (ITerm < outMin) ITerm = outMin;
+        T dInput = (input - lastInput);
 
-            if (output > outMax) output = outMax;
-            else if (output < outMin) output = outMin;
-            *myOutput = output;
+        /*Compute PIDT Output*/
+        T output = kp * error + ITerm - kd * dInput;
 
-            /*Remember some variables for next time*/
-            lastInput = input;
-            lastTime = now;
-            return true;
-        } else return false;
+        if (output > outMax) output = outMax;
+        else if (output < outMin) output = outMin;
+        *myOutput = output;
+
+        /*Remember some variables for next time*/
+        lastInput = input;
     }
 
 
@@ -219,7 +212,6 @@ private:
     T *mySetpoint;          //   PID, freeing the user from having to constantly tell us
     //   what these values are.  with pointers we'll just know.
 
-    unsigned long lastTime;
     T ITerm, lastInput;
 
     unsigned long SampleTime;

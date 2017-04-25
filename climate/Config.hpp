@@ -38,3 +38,19 @@
 #define MAX_TAGET_CO2 1500
 #define CO2_GISTERIS 100
 
+
+
+#define TEMPERATURE_PID_KP 2
+#define TEMPERATURE_PID_KI 5
+#define TEMPERATURE_PID_KD 1
+
+
+
+#define HUMIDITY_PID_KP 2
+#define HUMIDITY_PID_KI 5
+#define HUMIDITY_PID_KD 1
+
+
+#define CO2_PID_KP 2
+#define CO2_PID_KI 5
+#define CO2_PID_KD 1

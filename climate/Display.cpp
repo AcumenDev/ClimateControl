@@ -1,16 +1,15 @@
 #include "Display.hpp"
 
-Display::Display(char dataPin, char clkPin, char csPin, int intervalChange, int interval, Values *values)
+Display::Display(char dataPin, char clkPin, char csPin, int intervalChange, int interval)
         : IntervalWorckerBase(interval) {
     this->intervalChange = intervalChange;
-    this->values = values;
     this->ledControl = new LedControl(dataPin, clkPin, csPin, 2);
 
     initDisplay(0,8);
     initDisplay(1,4);
 }
 
-void Display::update(unsigned long currentMillis) {
+void Display::update(Values *values, unsigned long currentMillis) {
     if (values->isAfterChange(currentMillis)) { ////TODO Надо подписаться на событые изменения
         if (!isWorkTime(currentMillis, intervalChange)) {
             return;

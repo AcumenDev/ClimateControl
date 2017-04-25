@@ -1,6 +1,9 @@
 #ifndef INTERVAL_WORKER_BASE_HPP
 #define INTERVAL_WORKER_BASE_HPP
 
+#include "TimeUtils.hpp"
+#include "Values.h"
+
 class IntervalWorckerBase {
 
     unsigned long _prev_ms = 0;
@@ -9,13 +12,13 @@ class IntervalWorckerBase {
 public:
     IntervalWorckerBase(int interval);
 
-    virtual void work(unsigned long currentMillis) {};
+    virtual void work(Values *values, unsigned long currentMillis) {};
 
     bool isWorkTime(unsigned long currentMillis);
 
     bool isWorkTime(unsigned long currentMillis, int interval);
 
-    virtual void update(unsigned long currentMillis);
+    virtual void update(Values *values, unsigned long currentMillis);
 };
 
 #endif //DISPLAY_H

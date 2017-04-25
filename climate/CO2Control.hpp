@@ -7,19 +7,18 @@
 
 #include "PID_v1.h"
 #include "Values.h"
+#include "IntervalWorkerBase.hpp"
 
-class CO2Control {
-    float Kp=2, Ki=5, Kd=1;
+class CO2Control : public IntervalWorckerBase {
     PIDT<float> *pid;
-    Values *values;
+    float outputValue = 0; ////TODO убрать переменные переписать либу пид
+    float inputValue = 0;
+    float targetValue = 0;
 
 public:
-    CO2Control(Values *values);
+    CO2Control(float Kp, float Ki, float Kd, int interval);
 
-void update();
-    float outputValue;
-    float inputValue;
-    float targetValue;
+    void work(Values *values, unsigned long millis);
 };
 
 

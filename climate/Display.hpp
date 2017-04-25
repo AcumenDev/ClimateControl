@@ -8,14 +8,13 @@
 #include "IntervalWorkerBase.hpp"
 
 class Display : public IntervalWorckerBase {
-    Values *values;
     LedControl *ledControl;
     int intervalChange;
 
 public:
-    Display(char dataPin, char clkPin, char csPin, int intervalChange, int interval, Values *values);
+    Display(char dataPin, char clkPin, char csPin, int intervalChange, int interval);
 
-    void update(unsigned long currentMillis);
+    void update(Values *values, unsigned long currentMillis);
 
     void showTemp(int deviceNumb, float temp);
 
