@@ -11,6 +11,7 @@
 #include "Monitoring.hpp"
 #include "CO2Sensor.hpp"
 #include "CO2Control.hpp"
+#include "ExecutiveDevices.hpp"
 
 class Climate {
 public:
@@ -23,6 +24,8 @@ public:
     TemperatureControl *temperatureControl;
     Monitoring *monitoring;
     CO2Control * co2Control;
+    ExecutiveDevices * executiveDevices;
+
     bool startTimeOut;
 
     Climate();

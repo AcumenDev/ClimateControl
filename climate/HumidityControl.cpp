@@ -8,6 +8,7 @@ HumidityControl::HumidityControl(float Kp, float Ki, float Kd, int interval) : I
     pid = new PIDT<float>(&inputValue, &outputValue, &targetValue, Kp, Ki, Kd, DIRECT);
     pid->SetMode(AUTOMATIC);
     pid->SetSampleTime(interval);
+    pid->SetOutputLimits(-255, 255);
 }
 
 void HumidityControl::work(Values *values, unsigned long currentMillis) {

@@ -19,6 +19,9 @@ void Relays::humidificationOn() {
 void Relays::humidificationOff() {
     digitalWrite(humidificationRelayPin, HIGH);
 }
+void Relays::humidification(uint8_t val) {
+    digitalWrite(humidificationRelayPin, val);
+}
 
 void Relays::heatingOn() {
     digitalWrite(heatingRelayPin, LOW);
@@ -45,4 +48,6 @@ void Relays::ventilationOn() {
 void Relays::ventilationOff() {
 ///TODO
 }
+
+
 

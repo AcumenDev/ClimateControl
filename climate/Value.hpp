@@ -1,7 +1,6 @@
 #ifndef VALUE_H
 #define VALUE_H
 
-
 class Value {
     float current = 0;
     int target;

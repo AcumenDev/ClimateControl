@@ -2,7 +2,7 @@
 
 Climate::Climate() {
     values = new Values();
-    thSensors = new THSensors(SENSOR_PIN, 5000, values);
+    thSensors = new THSensors(5000);
     co2Sensor = new CO2Sensor(CO2_TX_PIN, CO2_RX_PIN, 5000);
     keys = new Keys(BUTTON_SELECT_PIN, BUTTON_MINUS_PIN, BUTTON_PLUS_PIN);
     display = new Display(DISPLAY_DATA_PIN, DISPLAY_CLK_PIN, DISPLAY_CS_PIN, 100, 500);
@@ -11,6 +11,7 @@ Climate::Climate() {
                                                 5000);
     monitoring = new Monitoring(10 * 1000);
     co2Control = new CO2Control(CO2_PID_KP, CO2_PID_KI, CO2_PID_KD, 5000);
+    executiveDevices = new ExecutiveDevices(relays, new ServoMotors());
     startTimeOut = false;
 }
 
@@ -36,5 +37,6 @@ void Climate::loop(unsigned long currentMillis) {
 
     if (startTimeOut) { ////Что бы не счелкала релюхами пока идет старт и прогрев датчиков
         ////TODO Исполнительные устройства
+        executiveDevices->update(values);
     }
 }

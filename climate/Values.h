@@ -13,6 +13,7 @@ enum TYPE_CLIMATE_VALUE {
     TEMPERATURE = 0,
     HUMIDITY = 1,
     CO2 = 2
+    //  ,PRESSURE =3
 };
 
 class Values {

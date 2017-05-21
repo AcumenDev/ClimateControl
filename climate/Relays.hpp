@@ -11,6 +11,7 @@ class Relays {
     Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t coolingRelayPin);
     void humidificationOn();
     void humidificationOff();
+    void humidification(uint8_t val);
     void heatingOn();
     void heatingOff();
     void coolingOn();

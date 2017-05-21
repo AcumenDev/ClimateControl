@@ -45,7 +45,7 @@ set(SOURCE_FILES_CLIMATE
         ../climate/Relays.cpp
         ../climate/IntervalWorckerBase.cpp
         ../climate/CO2Sensor.cpp
-        ../climate/Monitoring.cpp ../climate/CO2Control.cpp ../climate/CO2Control.hpp ../climate/HumidityControl.cpp ../climate/HumidityControl.hpp)
+        ../climate/Monitoring.cpp ../climate/CO2Control.cpp ../climate/CO2Control.hpp ../climate/HumidityControl.cpp ../climate/HumidityControl.hpp stub/Adafruit_BME280.h ../climate/ExecutiveDevices.cpp ../climate/ExecutiveDevices.hpp)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp ../climate/ServoMotors.cpp ../climate/ServoMotors.hpp)
 add_executable(test_climate ${SOURCE_FILES} ${SOURCE_FILES_CLIMATE} ${SOURCE_FILES_CLIMATE})
