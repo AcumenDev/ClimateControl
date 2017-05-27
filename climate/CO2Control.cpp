@@ -8,12 +8,12 @@ CO2Control::CO2Control(float Kp, float Ki, float Kd, int interval) : IntervalWor
     pid = new PIDT<float>(&inputValue, &outputValue, &targetValue, Kp, Ki, Kd, DIRECT);
     pid->SetMode(AUTOMATIC);
     pid->SetSampleTime(interval);
-    pid->SetOutputLimits(0, 255);
+    pid->SetOutputLimits(-180, 180);
 }
 
 void CO2Control::work(Values *values, unsigned long millis) {
     inputValue = values->getCurrentValue(CO2);
     targetValue = values->getTarget(CO2);
     pid->Compute();
-    values->setOutputValue(TEMPERATURE, outputValue);
+    values->setOutputValue(CO2, outputValue);
 }

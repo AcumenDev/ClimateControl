@@ -1,53 +1,43 @@
 #include "Relays.hpp"
 
-Relays::Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t coolingRelayPin) {
+Relays::Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t coolingRelayPin,
+               uint8_t ventilationRelayPin) {
     this->humidificationRelayPin = humidificationRelayPin;
     this->heatingRelayPin = heatingRelayPin;
     this->coolingRelayPin = coolingRelayPin;
+    this->ventilationRelayPin = ventilationRelayPin;
+
     pinMode(humidificationRelayPin, OUTPUT);
     pinMode(heatingRelayPin, OUTPUT);
     pinMode(coolingRelayPin, OUTPUT);
+    pinMode(ventilationRelayPin, OUTPUT);
+
     digitalWrite(humidificationRelayPin, HIGH);
     digitalWrite(heatingRelayPin, HIGH);
     digitalWrite(coolingRelayPin, HIGH);
+    digitalWrite(ventilationRelayPin, HIGH);
 }
 
-void Relays::humidificationOn() {
-    digitalWrite(humidificationRelayPin, LOW);
-}
-
-void Relays::humidificationOff() {
-    digitalWrite(humidificationRelayPin, HIGH);
-}
 void Relays::humidification(uint8_t val) {
     digitalWrite(humidificationRelayPin, val);
 }
 
-void Relays::heatingOn() {
-    digitalWrite(heatingRelayPin, LOW);
-    digitalWrite(coolingRelayPin, HIGH);
+void Relays::cooling(uint8_t val) {
+    if (val > digitalRead(coolingRelayPin)) {
+        digitalWrite(coolingRelayPin, val);
+    }
 }
 
-void Relays::heatingOff() {
-    digitalWrite(heatingRelayPin, HIGH);
+void Relays::heating(uint8_t val) {
+    digitalWrite(heatingRelayPin, val);
 }
 
-void Relays::coolingOn() {
-    digitalWrite(coolingRelayPin, LOW);
-    digitalWrite(heatingRelayPin, HIGH);
+void Relays::ventilation(uint8_t val) {
+    digitalWrite(ventilationRelayPin, val);
 }
 
-void Relays::coolingOff() {
-    digitalWrite(coolingRelayPin, HIGH);
+void Relays::draining(uint8_t val) {
+    if (val > digitalRead(coolingRelayPin)) {
+        digitalWrite(coolingRelayPin, val);
+    }
 }
-
-void Relays::ventilationOn() {
-///TODO
-}
-
-void Relays::ventilationOff() {
-///TODO
-}
-
-
-

@@ -7,13 +7,16 @@
 
 CO2Sensor::CO2Sensor(uint8_t sensorTXPin, uint8_t sensorRXPin, int interval) : IntervalWorckerBase(
         interval) {
-    serial = new SoftwareSerial(sensorTXPin, sensorRXPin);
+    pinMode(sensorRXPin, INPUT);
+    pinMode(sensorTXPin, OUTPUT);
+    co2Serial = new SoftwareSerial(sensorTXPin, sensorRXPin);
+    co2Serial->begin(9600);
 }
 
 float CO2Sensor::_getCO2() {
-    serial->write(readCO2Command, 9);
+    co2Serial->write(readCO2Command, 9);
     memset(response, 0, 9);
-    serial->readBytes(response, 9);
+    co2Serial->readBytes(response, 9);
     int i;
     byte crc = 0;
     for (i = 1; i < 8; i++) crc += response[i];

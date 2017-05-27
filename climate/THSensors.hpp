@@ -9,7 +9,7 @@
 
 class THSensors : public IntervalWorckerBase {
 #define BME_280_ADDRESS 0x76
-    Adafruit_BME280 *bme;
+    Adafruit_BME280 bme;
 
 public:
 

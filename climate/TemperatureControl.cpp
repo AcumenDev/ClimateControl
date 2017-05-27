@@ -4,7 +4,7 @@ TemperatureControl::TemperatureControl(float Kp, float Ki, float Kd, int interva
     pid = new PIDT<float>(&inputValue, &outputValue, &targetValue, Kp, Ki, Kd, DIRECT);
     pid->SetMode(AUTOMATIC);
     pid->SetSampleTime(interval);
-    pid->SetOutputLimits(-255, 255);
+    pid->SetOutputLimits(-180, 180);
 }
 
 void TemperatureControl::work(Values *values, unsigned long currentMillis) {

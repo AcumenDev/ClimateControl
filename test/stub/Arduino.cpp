@@ -10,6 +10,10 @@ unsigned long millis() {
     return 0;
 }
 
+void delay(int){
+
+}
+
 
 int digitalRead(int pin) {
     return pins[pin];

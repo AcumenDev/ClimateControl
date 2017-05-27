@@ -9,8 +9,8 @@ void setup() {
 
 void loop() {
   climate.loop(millis());
-  /*Serial.println("\n[memCheck]");
-  Serial.println(freeRam());*/
+ // Serial.println("\n[memCheck]");
+ // Serial.println(DebugUtils::getfreeRam());
 
 
 }

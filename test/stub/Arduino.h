@@ -13,9 +13,13 @@
 #include "../../climate/Config.hpp"
 
 
-#define A2 22
-#define A1 22
 #define A0 22
+#define A1 22
+#define A2 22
+#define A3 22
+#define A4 22
+#define A5 22
+
 
 typedef uint8_t byte;
 typedef bool boolean;
@@ -27,6 +31,7 @@ typedef bool boolean;
 #define INPUT_PULLUP 0x2
 
 unsigned long millis();
+void delay(int);
 
 
 int digitalRead(int pin);

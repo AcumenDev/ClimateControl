@@ -12,21 +12,26 @@
 #include "CO2Sensor.hpp"
 #include "CO2Control.hpp"
 #include "ExecutiveDevices.hpp"
+#include "HumidityControl.hpp"
 
 class Climate {
 public:
-    Values *values;
+    Values values;
     THSensors *thSensors;
     CO2Sensor *co2Sensor;
     Keys *keys;
     Display *display;
     Relays *relays;
     TemperatureControl *temperatureControl;
-    Monitoring *monitoring;
-    CO2Control * co2Control;
-    ExecutiveDevices * executiveDevices;
+    HumidityControl *humidityControl;
 
-    bool startTimeOut;
+    CO2Control *co2Control;
+    Monitoring *monitoring;
+    ServoMotors *servoMotors;
+
+    ExecutiveDevices *executiveDevices;
+
+    bool startTimeOut = false;
 
     Climate();
 

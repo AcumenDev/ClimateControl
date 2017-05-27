@@ -6,7 +6,7 @@ class Value {
     int target;
     int maxTarget;
     int minTarget;
-    int output;
+    int output = 0;
     float gisteris = 1;
 public:
     Value(int minTarget, int maxTarget, float gisteris) {

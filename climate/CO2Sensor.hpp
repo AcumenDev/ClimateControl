@@ -11,7 +11,7 @@
 #include "string.h"
 
 class CO2Sensor : public IntervalWorckerBase {
-    SoftwareSerial *serial;
+    SoftwareSerial *co2Serial;
     byte readCO2Command[9] = {0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79};
 
     unsigned char response[9];

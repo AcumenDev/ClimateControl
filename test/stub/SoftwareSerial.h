@@ -19,6 +19,8 @@ public:
     void readBytes(unsigned char string[9], int i) {
 
     }
+
+    void begin(int speed) {}
 };
 
 
