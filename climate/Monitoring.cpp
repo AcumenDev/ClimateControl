@@ -38,14 +38,14 @@ void Monitoring::work(Values *values, unsigned long currentMillis) {
 
     Serial.print("\t");
     Serial.print(!digitalRead(HUMIDIFICATION_RELAY_PIN));
-    Serial.print("\t");
+   // Serial.print("\t");
     Serial.print(!digitalRead(HEATING_RELAY_PIN));
-    Serial.print("\t");
+   // Serial.print("\t");
     Serial.print(!digitalRead(COOLING_RELAY_PIN));
-    Serial.print("\t");
+   // Serial.print("\t");
     Serial.print(!digitalRead(VENTILATION_RELAY_PIN));
-     Serial.print("\t");
-     Serial.print(DebugUtils::getfreeRam());
+/*     Serial.print("\t");
+     Serial.print(DebugUtils::getfreeRam());*/
     Serial.print("\n");
     Serial.flush();
 }

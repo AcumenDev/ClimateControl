@@ -10,6 +10,7 @@ CO2Sensor::CO2Sensor(uint8_t sensorTXPin, uint8_t sensorRXPin, int interval) : I
     pinMode(sensorRXPin, INPUT);
     pinMode(sensorTXPin, OUTPUT);
     co2Serial = new SoftwareSerial(sensorTXPin, sensorRXPin);
+    delay(100);
     co2Serial->begin(9600);
 }
 

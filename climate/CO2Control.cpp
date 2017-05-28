@@ -15,5 +15,11 @@ void CO2Control::work(Values *values, unsigned long millis) {
     inputValue = values->getCurrentValue(CO2);
     targetValue = values->getTarget(CO2);
     pid->Compute();
+
+    if (outputValue > 0) {
+        outputValue = 0;
+    } else {
+        outputValue = abs(outputValue);
+    }
     values->setOutputValue(CO2, outputValue);
 }
