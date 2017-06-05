@@ -5,8 +5,8 @@ Display::Display(char dataPin, char clkPin, char csPin, int intervalChange, int 
     this->intervalChange = intervalChange;
     this->ledControl = new LedControl(dataPin, clkPin, csPin, 2);
 
-    initDisplay(0,8);
-    initDisplay(1,4);
+    initDisplay(0, 8);
+    initDisplay(1, 4);
 }
 
 void Display::update(Values *values, unsigned long currentMillis) {
@@ -15,20 +15,20 @@ void Display::update(Values *values, unsigned long currentMillis) {
             return;
         }
         ledControl->clearDisplay(0);
-        showTemp(0, values->getTarget(TYPE_CLIMATE_VALUE::TEMPERATURE));
-        showHeating(0, values->getTarget(TYPE_CLIMATE_VALUE::HUMIDITY));
+        showTemp(0, values->getClimatVal(TEMPERATURE)->getTarget());
+        showHeating(0, values->getClimatVal(HUMIDITY)->getTarget());
         ledControl->clearDisplay(1);
-        showCO2(1, values->getTarget(TYPE_CLIMATE_VALUE::CO2));
+        showCO2(1, values->getClimatVal(CO2)->getTarget());
     } else {
         if (!isWorkTime(currentMillis)) {
             return;
         }
         ledControl->clearDisplay(0);
 
-        showTemp(0, values->getCurrentValue(TYPE_CLIMATE_VALUE::TEMPERATURE));
-        showHeating(0, values->getCurrentValue(TYPE_CLIMATE_VALUE::HUMIDITY));
+        showTemp(0, values->getClimatVal(TEMPERATURE)->getCurrent());
+        showHeating(0, values->getClimatVal(HUMIDITY)->getCurrent());
         ledControl->clearDisplay(1);
-        showCO2(1, values->getCurrentValue(TYPE_CLIMATE_VALUE::CO2));
+        showCO2(1, values->getClimatVal(CO2)->getCurrent());
         values->changeTimeStamp = 0;
     }
 }
@@ -41,7 +41,7 @@ void Display::showHeating(int deviceNumb, float heating) {
     showNumber(deviceNumb, heating, 4);
 }
 
-void Display::initDisplay(int deviceNumb,int scanLimit) {
+void Display::initDisplay(int deviceNumb, int scanLimit) {
     ledControl->shutdown(deviceNumb, false);
     ledControl->setScanLimit(deviceNumb, scanLimit);
     ledControl->setIntensity(deviceNumb, 15);

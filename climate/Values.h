@@ -89,32 +89,9 @@ public:
         setTimestamp(currentMillis);
     }
 
-    int getTarget(TYPE_CLIMATE_VALUE climateValue) {
-        return climateValues[climateValue]->getTarget();
-    }
 
-    int getGisteris(TYPE_CLIMATE_VALUE climateValue) {
-        return climateValues[climateValue]->getGisteris();
-    }
-
-    const float &getCurrentValue(TYPE_CLIMATE_VALUE climateValue) {
-        return climateValues[climateValue]->getCurrent();
-    }
-
-    void setTarget(TYPE_CLIMATE_VALUE climateValue, int target) {
-        climateValues[climateValue]->setTarget(target);
-    }
-
-    void setCurrentValue(TYPE_CLIMATE_VALUE climateValue, float value) {
-        climateValues[climateValue]->setCurrent(value);
-    }
-
-    void setOutputValue(TYPE_CLIMATE_VALUE climateValue, float value) {
-        climateValues[climateValue]->setOutput(value);
-    }
-
-    int getOutputValue(TYPE_CLIMATE_VALUE climateValue) {
-        return climateValues[climateValue]->getOutput();
+    Value *getClimatVal(TYPE_CLIMATE_VALUE climateValue) {
+        return climateValues[climateValue];
     }
 
 private:

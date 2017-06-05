@@ -36,6 +36,6 @@ float CO2Sensor::_getCO2() {
 }
 
 void CO2Sensor::work(Values *values, unsigned long currentMillis) {
-    values->setCurrentValue(CO2, _getCO2());
+    values->getClimatVal(CO2)->setCurrent(_getCO2());
 }
 

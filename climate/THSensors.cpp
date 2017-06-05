@@ -10,7 +10,7 @@ THSensors::THSensors(int interval)
 }
 
 void THSensors::work(Values *values, unsigned long currentMillis) {
-    values->setCurrentValue(HUMIDITY, bme.readHumidity());
-    values->setCurrentValue(TEMPERATURE, bme.readTemperature());
+    values->getClimatVal(HUMIDITY)->setCurrent(bme.readHumidity());
+    values->getClimatVal(TEMPERATURE)->setCurrent(bme.readTemperature());
     // bme.readPressure() / 100.0F
 }

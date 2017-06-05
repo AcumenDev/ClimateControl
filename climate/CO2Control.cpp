@@ -12,8 +12,8 @@ CO2Control::CO2Control(float Kp, float Ki, float Kd, int interval) : IntervalWor
 }
 
 void CO2Control::work(Values *values, unsigned long millis) {
-    inputValue = values->getCurrentValue(CO2);
-    targetValue = values->getTarget(CO2);
+    inputValue = values->getClimatVal(CO2)->getCurrent();
+    targetValue = values->getClimatVal(CO2)->getTarget();
     pid->Compute();
 
     if (outputValue > 0) {
@@ -21,5 +21,5 @@ void CO2Control::work(Values *values, unsigned long millis) {
     } else {
         outputValue = abs(outputValue);
     }
-    values->setOutputValue(CO2, outputValue);
+    values->getClimatVal(CO2)->setOutput((int) outputValue);
 }

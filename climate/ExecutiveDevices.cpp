@@ -16,7 +16,7 @@ void ExecutiveDevices::update(Values *values) {
 }
 
 void ExecutiveDevices::temperature(Values *values) {
-    int val = values->getOutputValue(TEMPERATURE);
+    int val = values->getClimatVal(TEMPERATURE)->getOutput();
     if (val == 0) {
         servoMotors->cooling(0);
         servoMotors->heating(0);
@@ -31,7 +31,7 @@ void ExecutiveDevices::temperature(Values *values) {
 }
 
 void ExecutiveDevices::humidity(Values *values) {
-    int val = values->getOutputValue(HUMIDITY);
+    int val = values->getClimatVal(HUMIDITY)->getOutput();
     if (val == 0) {
         servoMotors->humidification(0);
         relays->humidification(0);
@@ -45,6 +45,6 @@ void ExecutiveDevices::humidity(Values *values) {
 }
 
 void ExecutiveDevices::co2(Values *values) {
-    servoMotors->ventilation(values->getOutputValue(CO2));
+    servoMotors->ventilation(values->getClimatVal(CO2)->getOutput());
 }
 

@@ -7,6 +7,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   // Подключаем серву на 10 пин
+  motor.attach(9);
 }
 
 void loop() {
@@ -18,20 +19,19 @@ void loop() {
     // say what you got:
     Serial.print("I received: ");
     Serial.println(value, DEC);
+     motor.write(value);
+  }
+  
+  for (int i = 0; i <= 180; i++) {
+
+    motor.write(i);
+    delay(30);
   }
 
-  for (int i = 0; i <= 10; i++) {
-    motor.attach(9);
-    motor.writeMicroseconds(100);
-    motor.write(100);
-    delay(5000);
-    motor.detach();
-    delay(5000);
-    motor.attach(9);
-    motor.writeMicroseconds(100);
-    motor.write(180);
-    delay(5000);
-    motor.detach();
+  for (int i = 180; i >= 0; i--) {
+
+    motor.write(i);
+    delay(30);
   }
 
   // Печатаем на монитор

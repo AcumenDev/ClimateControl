@@ -8,8 +8,8 @@ HumidityControl::HumidityControl(float Kp, float Ki, float Kd, int interval) : I
 }
 
 void HumidityControl::work(Values *values, unsigned long millis) {
-    inputValue = values->getCurrentValue(HUMIDITY);
-    targetValue = values->getTarget(HUMIDITY);
+    inputValue = values->getClimatVal(HUMIDITY)->getCurrent();
+    targetValue = values->getClimatVal(HUMIDITY)->getTarget();
     pid->Compute();
-    values->setOutputValue(HUMIDITY, outputValue);
+    values->getClimatVal(HUMIDITY)->setOutput((int) outputValue);
 }

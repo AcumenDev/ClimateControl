@@ -8,6 +8,7 @@ class Value {
     int minTarget;
     int output = 0;
     float gisteris = 1;
+    uint8_t data = 0;
 public:
     Value(int minTarget, int maxTarget, float gisteris) {
         this->minTarget = minTarget;
@@ -45,6 +46,10 @@ public:
     void setOutput(int value) { this->output = value; }
 
     int getOutput() { return output; }
+
+    void setData(u_int8_t val) { this->data = data; }
+
+    u_int8_t getData() { return this->data; }
 };
 
 #endif
