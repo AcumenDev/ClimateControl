@@ -49,58 +49,38 @@ void TemperatureControl::heating(Value *value, unsigned long currentMillis) {
         if (workType == HEATING) {
             if (value->getCurrent() <
                 (value->getTarget() - value->getGisteris())) {
-         //       relays->heatingOn();
+                value->setHeating(true);
             }
         } else {
             workType = HEATING;
-        //    relays->heatingOn();
+            value->setHeating(true);
         }
     } else if (value->getCurrent() >= value->getTarget()) {
-      //  relays->heatingOff();
+        value->setHeating(false);
 
         if (value->getCurrent() > value->getTarget() + value->getGisteris()) {
-            //       if (timestamp == 0) {
-            //           timestamp = currentMillis;
-            //        }
-
-            //     if (currentMillis - timestamp >= waitingTime) {
             this->workType = OFF;
-            //timestamp = 0;
-            //        }
-            //        if (value->getCurrent() <= value->targetTemperature) {
-            //            timestamp = 0;
-            //         }
         }
     }
 }
-
 
 void TemperatureControl::cooling(Value *value, unsigned long currentMillis) {
     if (value->getCurrent() > value->getTarget()) {
         if (workType == COOLING) {
             if (value->getCurrent() >
                 (value->getTarget() + value->getGisteris())) {
-    //            relays->coolingOn();
+                value->setCooling(true);
             }
         } else {
             workType = COOLING;
-    //        relays->coolingOn();
+            value->setCooling(true);
         }
     } else if (value->getCurrent() <= value->getTarget()) {
-    //    relays->coolingOff();
+
+        value->setCooling(false);
 
         if (value->getCurrent() < value->getTarget() - value->getGisteris()) {
-            // if (timestamp == 0) {
-            //      timestamp = currentMillis;
-            //  }
-
-            //    if (currentMillis - timestamp >= waitingTime) {
             this->workType = OFF;
-            //timestamp = 0;
-            //     }
         }
-        //    if (value->getCurrent() >= value->target) {
-        //       timestamp = 0;
-        //   }
     }
 }

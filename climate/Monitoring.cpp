@@ -46,8 +46,12 @@ void Monitoring::work(Values *values, unsigned long currentMillis) {
     Serial.print(!digitalRead(COOLING_RELAY_PIN));
     // Serial.print("\t");
     Serial.print(!digitalRead(VENTILATION_RELAY_PIN));
-/*     Serial.print("\t");
-     Serial.print(DebugUtils::getfreeRam());*/
+
+
+#ifdef CLIMATE_DEBUG_RAM
+    Serial.print("\t");
+    Serial.print(DebugUtils::getfreeRam());
+#endif
     Serial.print("\n");
     Serial.flush();
 }

@@ -16,17 +16,23 @@ void ExecutiveDevices::update(Values *values) {
 }
 
 void ExecutiveDevices::temperature(Values *values) {
-    int val = values->getClimatVal(TEMPERATURE)->getOutput();
-    if (val == 0) {
+    Value *val = values->getClimatVal(TEMPERATURE);
+
+
+    relays->heating(val->getHeating());
+    relays->cooling(val->getCooling());
+
+
+    if (val->getOutput() == 0) {
         servoMotors->cooling(0);
         servoMotors->heating(0);
         return;
     }
 
     if (val > 0) { ///охлаждать
-        servoMotors->cooling(abs(val));
+        servoMotors->cooling(abs(val->getOutput()));
     } else if (val < 0) { ///нагревать
-        servoMotors->heating(abs(val));
+        servoMotors->heating(abs(val->getOutput()));
     }
 }
 

@@ -8,7 +8,8 @@ class Value {
     int minTarget;
     int output = 0;
     float gisteris = 1;
-    uint8_t data = 0;
+    uint8_t heating = 0;
+    uint8_t cooling = 0;
 public:
     Value(int minTarget, int maxTarget, float gisteris) {
         this->minTarget = minTarget;
@@ -47,9 +48,12 @@ public:
 
     int getOutput() { return output; }
 
-    void setData(u_int8_t val) { this->data = data; }
+    void setHeating(uint8_t value) { this->heating = value; }
+    uint8_t getHeating() { return heating; }
 
-    u_int8_t getData() { return this->data; }
+
+    void setCooling(uint8_t value) { this->cooling = value; }
+    uint8_t getCooling() { return cooling; }
 };
 
 #endif
