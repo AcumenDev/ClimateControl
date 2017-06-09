@@ -18,10 +18,8 @@ void ExecutiveDevices::update(Values *values) {
 void ExecutiveDevices::temperature(Values *values) {
     Value *val = values->getClimatVal(TEMPERATURE);
 
-
     relays->heating(val->getHeating());
     relays->cooling(val->getCooling());
-
 
     if (val->getOutput() == 0) {
         servoMotors->cooling(0);

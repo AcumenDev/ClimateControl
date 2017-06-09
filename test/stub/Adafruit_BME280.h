@@ -7,16 +7,27 @@
 
 class Adafruit_BME280 {
 public:
+    float temperature = 0;
+    float humanity = 0;
+
     bool begin(uint8_t addr) {
         return true;
     }
 
     float readHumidity() {
-        return 0;
+        return humanity;
     }
 
     float readTemperature() {
-        return 0;
+        return temperature;
+    }
+
+    void setTemperature(float val) {
+        temperature = val;
+    }
+
+    void setHumanity(float val) {
+        humanity = val;
     }
 };
 

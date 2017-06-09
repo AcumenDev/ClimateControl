@@ -1,10 +1,11 @@
 #include "ClimateChangeService.hpp"
 
 
-ClimateChangeService::ClimateChangeService(DHT *pDHT, Values *pValues) {
-    dht = pDHT;
+ClimateChangeService::ClimateChangeService(Adafruit_BME280 *bme280, Values *pValues) {
+    this->bme280 = bme280;
     values = pValues;
-    dht->setTemp(35);
+    this->bme280->setHumanity(40);
+    this->bme280->setTemperature(20);
 }
 
 void ClimateChangeService::update(unsigned long currentMillis) {
@@ -61,9 +62,9 @@ void ClimateChangeService::update(unsigned long currentMillis) {
     }*/
 
 
-  /*  if (!digitalRead(HUMIDIFICATION_RELAY_PIN)) {
-        dht->setHumidity(dht->readHumidity() + cofPriborHumidity);
-    }*/
+    /*  if (!digitalRead(HUMIDIFICATION_RELAY_PIN)) {
+          dht->setHumidity(dht->readHumidity() + cofPriborHumidity);
+      }*/
 
     if (!digitalRead(HEATING_RELAY_PIN)) {
         dht->setTemp(dht->readTemperature() + cofPribor);
