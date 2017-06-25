@@ -1,4 +1,5 @@
 #include "Relays.hpp"
+#include "DebugUtils.hpp"
 
 Relays::Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t coolingRelayPin,
                uint8_t ventilationRelayPin) {
@@ -18,25 +19,26 @@ Relays::Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t 
     digitalWrite(ventilationRelayPin, HIGH);
 }
 
-void Relays::humidification(uint8_t val) {
+void Relays::humidification(bool val) {
+    DEBUG_PRINTLN("hun "+val);
     digitalWrite(humidificationRelayPin, val);
 }
 
-void Relays::cooling(uint8_t val) {
-    if (val > digitalRead(coolingRelayPin)) {
-        digitalWrite(coolingRelayPin, val);
-    }
+void Relays::cooling(bool val) {
+    DEBUG_PRINTLN("coo "+val);
+    digitalWrite(coolingRelayPin, !val);
 }
 
-void Relays::heating(uint8_t val) {
-    digitalWrite(heatingRelayPin, val);
+void Relays::heating(bool val) {
+    DEBUG_PRINTLN("hea "+val);
+    digitalWrite(heatingRelayPin, !val);
 }
 
-void Relays::ventilation(uint8_t val) {
+void Relays::ventilation(bool val) {
     digitalWrite(ventilationRelayPin, val);
 }
 
-void Relays::draining(uint8_t val) {
+void Relays::draining(bool val) {
     if (val > digitalRead(coolingRelayPin)) {
         digitalWrite(coolingRelayPin, val);
     }

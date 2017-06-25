@@ -13,15 +13,15 @@ public:
     Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t coolingRelayPin,
            uint8_t ventilationRelayPin);
 
-    void humidification(uint8_t val);
+    void humidification(bool val);
 
-    void heating(uint8_t val);
+    void heating(bool val);
 
-    void cooling(uint8_t val);
+    void cooling(bool val);
 
-    void ventilation(uint8_t val);
+    void ventilation(bool val);
 
-    void draining(uint8_t val);
+    void draining(bool val);
 
 
 };

@@ -8,8 +8,9 @@ class Value {
     int minTarget;
     int output = 0;
     float gisteris = 1;
-    uint8_t heating = 0;
-    uint8_t cooling = 0;
+    bool heating = 0;
+    bool cooling = 0;
+    bool humidity = 0;
 public:
     Value(int minTarget, int maxTarget, float gisteris) {
         this->minTarget = minTarget;
@@ -48,12 +49,19 @@ public:
 
     int getOutput() { return output; }
 
-    void setHeating(uint8_t value) { this->heating = value; }
-    uint8_t getHeating() { return heating; }
+    void setHeating(bool value) { this->heating = value; }
+
+    bool getHeating() { return heating; }
 
 
-    void setCooling(uint8_t value) { this->cooling = value; }
-    uint8_t getCooling() { return cooling; }
+    void setCooling(bool value) { this->cooling = value; }
+
+    bool getCooling() { return cooling; }
+
+
+    void setHumidity(bool value) { this->humidity = value; }
+
+    bool getHumidity() { return humidity; }
 };
 
 #endif

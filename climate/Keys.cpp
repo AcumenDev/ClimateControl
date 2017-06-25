@@ -26,12 +26,12 @@ void Keys::update(Values *values, unsigned long currentMillis) {
     }
 
     if (buttonMinus->isPressed()) {
-        DEBUG_PRINT("-");
+       // DEBUG_PRINT("-");
         values->minus(currentMillis);
     }
 
     if (buttonPlus->isPressed()) {
-        DEBUG_PRINT("+");
+       // DEBUG_PRINT("+");
         values->plus(currentMillis);
     }
 }

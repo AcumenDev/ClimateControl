@@ -18,10 +18,11 @@ void ExecutiveDevices::update(Values *values) {
 void ExecutiveDevices::temperature(Values *values) {
     Value *val = values->getClimatVal(TEMPERATURE);
 
+
     relays->heating(val->getHeating());
     relays->cooling(val->getCooling());
 
-    if (val->getOutput() == 0) {
+  /*  if (val->getOutput() == 0) {
         servoMotors->cooling(0);
         servoMotors->heating(0);
         return;
@@ -31,12 +32,15 @@ void ExecutiveDevices::temperature(Values *values) {
         servoMotors->cooling(abs(val->getOutput()));
     } else if (val < 0) { ///нагревать
         servoMotors->heating(abs(val->getOutput()));
-    }
+    }*/
 }
 
 void ExecutiveDevices::humidity(Values *values) {
-    int val = values->getClimatVal(HUMIDITY)->getOutput();
-    if (val == 0) {
+    Value *val = values->getClimatVal(HUMIDITY);
+
+    relays->cooling(val->getHumidity());
+
+   /* if (val == 0) {
         servoMotors->humidification(0);
         relays->humidification(0);
         return;
@@ -45,7 +49,7 @@ void ExecutiveDevices::humidity(Values *values) {
         servoMotors->humidification(val);
     } else if (val < 0) { ///увлажнять
         relays->humidification(1);
-    }
+    }*/
 }
 
 void ExecutiveDevices::co2(Values *values) {
