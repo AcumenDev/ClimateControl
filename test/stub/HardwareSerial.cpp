@@ -2,7 +2,7 @@
 
 void HardwareSerial::begin(unsigned long baud) {
     cout.precision(2);
-    cout<<std::fixed;
+    cout << std::fixed;
 }
 
 size_t HardwareSerial::print(const char item[]) {
@@ -18,7 +18,7 @@ size_t HardwareSerial::print(int item) {
 }
 
 size_t HardwareSerial::print(double item) {
-   // cout.precision(4);
+    // cout.precision(4);
     cout << item;
 }
 
@@ -32,4 +32,8 @@ size_t HardwareSerial::println(const char item[]) {
 
 size_t HardwareSerial::print(unsigned long item) {
     cout << item;
+}
+
+size_t HardwareSerial::println(int i) {
+    cout << i << std::endl;
 }

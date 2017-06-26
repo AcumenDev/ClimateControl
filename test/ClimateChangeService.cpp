@@ -20,7 +20,7 @@ void ClimateChangeService::update(unsigned long currentMillis) {
     // values->setCurrentValue(TEMPERATURE, values->getCurrentValue(TEMPERATURE) - cof); ////TODO творяться бесчинства переписать
     //  dht->setTemp(dht->readTemperature()-cof);
     //} else if (values->getCurrentValue(TEMPERATURE) < Temperature) {
-    dht->setTemp(dht->readTemperature() - cof);
+    //dht->setTemp(dht->readTemperature() - cof);
     // }
 
 
@@ -66,13 +66,13 @@ void ClimateChangeService::update(unsigned long currentMillis) {
           dht->setHumidity(dht->readHumidity() + cofPriborHumidity);
       }*/
 
-    if (!digitalRead(HEATING_RELAY_PIN)) {
+ /*   if (!digitalRead(HEATING_RELAY_PIN)) {
         dht->setTemp(dht->readTemperature() + cofPribor);
     }
     if (!digitalRead(COOLING_RELAY_PIN)) {
         dht->setTemp(dht->readTemperature() - cofPribor);
     }
-
+*/
 
     updateTempPreviousMillis = currentMillis;
 }

@@ -8,8 +8,16 @@ HumidityControl::HumidityControl(float Kp, float Ki, float Kd, int interval) : I
 }
 
 void HumidityControl::work(Values *values, unsigned long millis) {
-    inputValue = values->getClimatVal(HUMIDITY)->getCurrent();
-    targetValue = values->getClimatVal(HUMIDITY)->getTarget();
+    Value *value = values->getClimatVal(HUMIDITY);
+
+    inputValue = value->getCurrent();
+    targetValue = value->getTarget();
     pid->Compute();
-    values->getClimatVal(HUMIDITY)->setOutput((int) outputValue);
+    value->setOutput((int) outputValue);
+
+    if (value->getCurrent() >= value->getTarget() + value->getGisteris()) {
+        value->setHumidity(false);
+    } else {
+        value->setHumidity(value->getCurrent() < value->getTarget());
+    }
 }

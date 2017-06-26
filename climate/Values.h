@@ -74,8 +74,8 @@ public:
             currentSelection = TYPE_CLIMATE_VALUE::TEMPERATURE;
         }
         setTimestamp(currentMillis);
-        DEBUG_PRINT("select: ");
-        DEBUG_PRINT(currentSelection);
+      //  DEBUG_PRINT("select: ");
+      //  DEBUG_PRINT(currentSelection);
 
     }
 

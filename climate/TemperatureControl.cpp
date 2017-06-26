@@ -6,10 +6,10 @@ TemperatureControl::TemperatureControl(float Kp, float Ki, float Kd, int interva
     pid->SetSampleTime(interval);
     pid->SetOutputLimits(-180, 180);
 
-    workType = OFF;
+    _setWorkType(OFF);
 }
 
-void TemperatureControl::work(Values *values, unsigned long currentMillis) {
+void TemperatureControl::work(Values *values, unsigned long) {
 
     Value *temperatureVal = values->getClimatVal(TEMPERATURE);
 
@@ -18,69 +18,50 @@ void TemperatureControl::work(Values *values, unsigned long currentMillis) {
     pid->Compute();
     temperatureVal->setOutput((int) outputValue);
 
-    control_v1(temperatureVal, currentMillis);
+    control_v1(temperatureVal);
 }
 
-void TemperatureControl::control_v1(Value *value, unsigned long currentMillis) {
+void TemperatureControl::control_v1(Value *value) {
     switch (workType) {
         case OFF: {
-            if (value->getCurrent() < value->getTarget()) {
-                heating(value, currentMillis);
-            } else if (value->getCurrent() > value->getTarget()) {
-                cooling(value, currentMillis);
+            if (value->getCurrent() < value->getTarget() - (value->getGisteris() / 2)) {
+                _setWorkType(HEATING);
+                heating(value);
+            } else if (value->getCurrent() > value->getTarget() + (value->getGisteris() / 2)) {
+                _setWorkType(COOLING);
+                cooling(value);
             }
             break;
         }
         case HEATING: {
-            heating(value, currentMillis);
+            heating(value);
             break;
         }
         case COOLING: {
-            cooling(value, currentMillis);
+            cooling(value);
             break;
         }
     }
 }
 
-
-void TemperatureControl::heating(Value *value, unsigned long currentMillis) {
-
-    if (value->getCurrent() < value->getTarget()) {
-        if (workType == HEATING) {
-            if (value->getCurrent() <
-                (value->getTarget() - value->getGisteris())) {
-                value->setHeating(true);
-            }
-        } else {
-            workType = HEATING;
-            value->setHeating(true);
-        }
-    } else if (value->getCurrent() >= value->getTarget()) {
+void TemperatureControl::heating(Value *value) {
+    if (value->getCurrent() >= value->getTarget() + value->getGisteris()) {
         value->setHeating(false);
-
-        if (value->getCurrent() > value->getTarget() + value->getGisteris()) {
-            this->workType = OFF;
-        }
+        _setWorkType(OFF);
+    } else {
+        value->setHeating(value->getCurrent() < value->getTarget());
     }
 }
 
-void TemperatureControl::cooling(Value *value, unsigned long currentMillis) {
-    if (value->getCurrent() > value->getTarget()) {
-        if (workType == COOLING) {
-            if (value->getCurrent() >
-                (value->getTarget() + value->getGisteris())) {
-                value->setCooling(true);
-            }
-        } else {
-            workType = COOLING;
-            value->setCooling(true);
-        }
-    } else if (value->getCurrent() <= value->getTarget()) {
-
+void TemperatureControl::cooling(Value *value) {
+    if (value->getCurrent() <= value->getTarget() - value->getGisteris()) {
         value->setCooling(false);
-
-        if (value->getCurrent() < value->getTarget() - value->getGisteris()) {
-            this->workType = OFF;
-        }
+        _setWorkType(OFF);
+    } else {
+        value->setCooling(value->getCurrent() > value->getTarget());
     }
+}
+
+void TemperatureControl::_setWorkType(TemperatureControl::WorkType type) {
+    workType = type;
 }

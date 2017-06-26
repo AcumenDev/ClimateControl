@@ -5,13 +5,14 @@
 #include "Relays.hpp"
 #include "PID_v1.h"
 #include "IntervalWorkerBase.hpp"
+#include "DebugUtils.hpp"
 
 
 class TemperatureControl : public IntervalWorckerBase {
     enum WorkType {
-        HEATING,
-        COOLING,
-        OFF
+        OFF = 0,
+        COOLING = 1,
+        HEATING = 2
     };
 
     WorkType workType;
@@ -20,10 +21,13 @@ class TemperatureControl : public IntervalWorckerBase {
     float targetValue = 0;
     float outputValue = 0;
 
-    void  control_v1(Value *values,unsigned long currentMillis);
+    void control_v1(Value *values);
 
-    void  heating(Value *values,unsigned long currentMillis);
-    void   cooling(Value *values,unsigned long currentMillis);
+    void heating(Value *values);
+
+    void cooling(Value *values);
+
+    void _setWorkType(WorkType type);
 
 public:
     TemperatureControl(float Kp, float Ki, float Kd, int interval);

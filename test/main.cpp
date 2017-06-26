@@ -18,7 +18,7 @@ int main() {
          endl;
     climate.setup();
 
-    ClimateChangeService *changeService = new ClimateChangeService(new DHT(1, 1), &climate.values);
+    ClimateChangeService *changeService = new ClimateChangeService(new Adafruit_BME280(), &climate.values);
 
     bool state = true;
     unsigned long startTime = 0;

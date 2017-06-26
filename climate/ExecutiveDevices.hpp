@@ -9,6 +9,7 @@
 #include "Values.h"
 #include "Relays.hpp"
 #include "ServoMotors.hpp"
+#include "DebugUtils.hpp"
 
 class ExecutiveDevices {
      Relays *relays;

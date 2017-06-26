@@ -20,26 +20,26 @@ Relays::Relays(uint8_t humidificationRelayPin, uint8_t heatingRelayPin, uint8_t 
 }
 
 void Relays::humidification(bool val) {
-    DEBUG_PRINTLN("hun "+val);
-    digitalWrite(humidificationRelayPin, val);
+   // DEBUG_PRINTLN("hun "+val);
+    digitalWrite(humidificationRelayPin, !val);
 }
 
 void Relays::cooling(bool val) {
-    DEBUG_PRINTLN("coo "+val);
+    //DEBUG_PRINTLN("coo "+val);
     digitalWrite(coolingRelayPin, !val);
 }
 
 void Relays::heating(bool val) {
-    DEBUG_PRINTLN("hea "+val);
+   // DEBUG_PRINTLN("hea "+val);
     digitalWrite(heatingRelayPin, !val);
 }
 
 void Relays::ventilation(bool val) {
-    digitalWrite(ventilationRelayPin, val);
+    digitalWrite(ventilationRelayPin, !val);
 }
 
 void Relays::draining(bool val) {
     if (val > digitalRead(coolingRelayPin)) {
-        digitalWrite(coolingRelayPin, val);
+        digitalWrite(coolingRelayPin, !val);
     }
 }

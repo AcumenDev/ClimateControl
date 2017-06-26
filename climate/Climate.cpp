@@ -11,7 +11,7 @@ void Climate::setup() {
 
     co2Sensor = new CO2Sensor(CO2_TX_PIN, CO2_RX_PIN, 10000);
     keys = new Keys(BUTTON_SELECT_PIN, BUTTON_MINUS_PIN, BUTTON_PLUS_PIN);
-    display = new Display(DISPLAY_DATA_PIN, DISPLAY_CLK_PIN, DISPLAY_CS_PIN, 100, 500);
+    display = new Display(DISPLAY_DATA_PIN, DISPLAY_CLK_PIN, DISPLAY_CS_PIN, 100, 2500);
     relays = new Relays(HUMIDIFICATION_RELAY_PIN, HEATING_RELAY_PIN, COOLING_RELAY_PIN, VENTILATION_RELAY_PIN);
     temperatureControl = new TemperatureControl(TEMPERATURE_PID_KP, TEMPERATURE_PID_KI,
                                                 TEMPERATURE_PID_KD, 5000);
@@ -23,10 +23,6 @@ void Climate::setup() {
 }
 
 void Climate::loop(unsigned long currentMillis) {
-    if (!startTimeOut && currentMillis >= 40000) {
-        startTimeOut = true;
-    }
-
     thSensors->update(&values, currentMillis);
     co2Sensor->update(&values, currentMillis);
     keys->update(&values, currentMillis);
@@ -36,8 +32,8 @@ void Climate::loop(unsigned long currentMillis) {
     co2Control->update(&values, currentMillis);
     temperatureControl->update(&values, currentMillis);
     humidityControl->update(&values, currentMillis);
-    if (startTimeOut) { ////Что бы не счелкала релюхами пока идет старт и прогрев датчиков
-        ////TODO Исполнительные устройства
+    if (startTimeOut || currentMillis >= 5000) { ////Что бы не счелкала релюхами пока идет старт и прогрев датчиков
         executiveDevices->update(&values);
+        startTimeOut = true;
     }
 }

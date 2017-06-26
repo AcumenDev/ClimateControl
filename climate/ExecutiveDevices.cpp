@@ -18,7 +18,8 @@ void ExecutiveDevices::update(Values *values) {
 void ExecutiveDevices::temperature(Values *values) {
     Value *val = values->getClimatVal(TEMPERATURE);
 
-
+   // DEBUG_PRINTLN(val->getHeating());
+   // DEBUG_PRINTLN(val->getCooling());
     relays->heating(val->getHeating());
     relays->cooling(val->getCooling());
 
@@ -38,7 +39,7 @@ void ExecutiveDevices::temperature(Values *values) {
 void ExecutiveDevices::humidity(Values *values) {
     Value *val = values->getClimatVal(HUMIDITY);
 
-    relays->cooling(val->getHumidity());
+    relays->humidification(val->getHumidity());
 
    /* if (val == 0) {
         servoMotors->humidification(0);
