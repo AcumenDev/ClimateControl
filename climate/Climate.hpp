@@ -1,6 +1,8 @@
 #ifndef CLIMAT_HPP
 #define CLIMAT_HPP
 
+#define ONE_MINUTE 60000
+
 #include "Arduino.h"
 #include "THSensors.hpp"
 #include "Keys.hpp"
@@ -32,6 +34,7 @@ public:
     ExecutiveDevices *executiveDevices;
 
     bool startTimeOut = false;
+    bool co2startet = false;
 
     Climate();
 

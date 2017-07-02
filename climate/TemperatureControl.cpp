@@ -24,10 +24,10 @@ void TemperatureControl::work(Values *values, unsigned long) {
 void TemperatureControl::control_v1(Value *value) {
     switch (workType) {
         case OFF: {
-            if (value->getCurrent() < value->getTarget() - (value->getGisteris() / 2)) {
+            if (value->getCurrent() < value->getTarget() - value->getGisteris()) {
                 _setWorkType(HEATING);
                 heating(value);
-            } else if (value->getCurrent() > value->getTarget() + (value->getGisteris() / 2)) {
+            } else if (value->getCurrent() > value->getTarget() + value->getGisteris()) {
                 _setWorkType(COOLING);
                 cooling(value);
             }
@@ -49,7 +49,7 @@ void TemperatureControl::heating(Value *value) {
         value->setHeating(false);
         _setWorkType(OFF);
     } else {
-        value->setHeating(value->getCurrent() < value->getTarget());
+        value->setHeating(value->getCurrent() < value->getTarget() - value->getGisteris());
     }
 }
 
@@ -58,7 +58,7 @@ void TemperatureControl::cooling(Value *value) {
         value->setCooling(false);
         _setWorkType(OFF);
     } else {
-        value->setCooling(value->getCurrent() > value->getTarget());
+        value->setCooling(value->getCurrent() > value->getTarget() + value->getGisteris());
     }
 }
 

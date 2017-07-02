@@ -8,9 +8,10 @@ class Value {
     int minTarget;
     int output = 0;
     float gisteris = 1;
-    bool heating = 0;
-    bool cooling = 0;
-    bool humidity = 0;
+    bool heating = false;
+    bool cooling = false;
+    bool humidity = false;
+    bool ventilation = false;
 public:
     Value(int minTarget, int maxTarget, float gisteris) {
         this->minTarget = minTarget;
@@ -62,6 +63,11 @@ public:
     void setHumidity(bool value) { this->humidity = value; }
 
     bool getHumidity() { return humidity; }
+
+
+    void setVentilation(bool value) { this->ventilation = value; }
+
+    bool getVentilation() { return ventilation; }
 };
 
 #endif

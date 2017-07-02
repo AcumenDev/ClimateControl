@@ -1,7 +1,8 @@
 #define CLIMATE_DEBUG
 
-#define BUTTON_PLUS_PIN A0
-#define BUTTON_MINUS_PIN A1
+#define BUTTON_MINUS_PIN A0
+#define BUTTON_PLUS_PIN A1
+
 
 #define CO2_RX_PIN A2
 #define CO2_TX_PIN A3
@@ -42,8 +43,8 @@
 #define TEMPERATURE_GISTERIS 1
 
 #define MIN_TAGET_CO2 300
-#define MAX_TAGET_CO2 2500
-#define CO2_GISTERIS 100
+#define MAX_TAGET_CO2 999
+#define CO2_GISTERIS 50
 
 
 #define TEMPERATURE_PID_KP 2

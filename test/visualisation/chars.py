@@ -27,12 +27,12 @@ with open('output', 'r') as f:
        # print(row)
         timesList.append(row[0])
         temperatureList.append(row[1])
-        humidityList.append(row[2])
-        targetTemperatureList.append(row[3])
-        targetHumidityList.append(row[4])
-        humidification_relayList.append(row[5])
-        heating_relayList.append(row[6])
-        cooling_relayList.append(row[7])
+        #humidityList.append(row[2])
+        targetTemperatureList.append(row[2])
+        #targetHumidityList.append(row[4])
+        #humidification_relayList.append(row[5])
+        #heating_relayList.append(row[6])
+        #cooling_relayList.append(row[7])
 # print(your_list)
 
 
@@ -42,10 +42,10 @@ fig = plt.figure()
 
 ttp = fig.add_subplot(111)
 #ttp.set_figheight(50)
-ttp.plot(timesList, temperatureList, color='r', linewidth=4.0,label='temperature')
+ttp.plot(timesList, temperatureList, color='r', linewidth=4.0,label='currentTemperature')
 ttp.plot(timesList, targetTemperatureList, color='g', linewidth=4, label='targetTemperature')
-ttp.plot(timesList, cooling_relayList, color='g', linewidth=4, label='cooling')
-ttp.plot(timesList, heating_relayList, color='blue', linewidth=4, label='heating')
+#ttp.plot(timesList, cooling_relayList, color='g', linewidth=4, label='cooling')
+#ttp.plot(timesList, heating_relayList, color='blue', linewidth=4, label='heating')
 
 
 

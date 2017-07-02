@@ -5,19 +5,35 @@ ClimateChangeService::ClimateChangeService(Adafruit_BME280 *bme280, Values *pVal
     this->bme280 = bme280;
     values = pValues;
     this->bme280->setHumanity(40);
-    this->bme280->setTemperature(20);
+    this->bme280->setTemperature(5);
 }
 
 void ClimateChangeService::update(unsigned long currentMillis) {
     if ((currentMillis - updateTempPreviousMillis) < 1000) {
         return;
     }
-    int Temperature = 2;
-    float cof = 0.005;
 
-    float cofPribor = 0.06;
-    //if (values->getCurrentValue(TEMPERATURE) > Temperature) {
-    // values->setCurrentValue(TEMPERATURE, values->getCurrentValue(TEMPERATURE) - cof); ////TODO творяться бесчинства переписать
+    //окружающая среда
+    int Temperature = 20;
+    //коэффициент влияния окружающей среды
+    float cof = 0.005;
+    //коэффициент влияния приборов
+    float cofPribor = 0.006;
+
+    Value *value = values->getClimatVal(TEMPERATURE);
+
+    if (bme280->readTemperature() > Temperature) {
+        bme280->setTemperature(bme280->readTemperature() - cof);
+    } else if (bme280->readTemperature() < Temperature) {
+        bme280->setTemperature(bme280->readTemperature() + cof);
+    }
+
+    if (!digitalRead(HEATING_RELAY_PIN)) {
+        bme280->setTemperature(bme280->readTemperature() + cofPribor);
+    }
+
+
+    //// values->setCurrentValue(TEMPERATURE, values->getCurrentValue(TEMPERATURE) - cof); ////TODO творяться бесчинства переписать
     //  dht->setTemp(dht->readTemperature()-cof);
     //} else if (values->getCurrentValue(TEMPERATURE) < Temperature) {
     //dht->setTemp(dht->readTemperature() - cof);
@@ -29,7 +45,7 @@ void ClimateChangeService::update(unsigned long currentMillis) {
 
     float cofPriborHumidity = 0.006;
     if (values->getCurrentValue(HUMIDITY) > Humidity) {
-        values->setCurrentValue(HUMIDITY, values->getCurrentValue(HUMIDITY) - cofHumidity);
+        ///values->setCurrentValue(HUMIDITY, values->getCurrentValue(HUMIDITY) - cofHumidity);
         dht->setHumidity(dht->readHumidity() - cofHumidity);
     } else if (values->getCurrentValue(HUMIDITY) < Humidity) {
         dht->setHumidity(dht->readHumidity() + cofHumidity);
@@ -53,7 +69,6 @@ void ClimateChangeService::update(unsigned long currentMillis) {
 
 
 
-
 /*
     if (values->humidity > Humidity) {
         values->humidity = values->humidity - cof;
@@ -66,13 +81,13 @@ void ClimateChangeService::update(unsigned long currentMillis) {
           dht->setHumidity(dht->readHumidity() + cofPriborHumidity);
       }*/
 
- /*   if (!digitalRead(HEATING_RELAY_PIN)) {
-        dht->setTemp(dht->readTemperature() + cofPribor);
-    }
-    if (!digitalRead(COOLING_RELAY_PIN)) {
-        dht->setTemp(dht->readTemperature() - cofPribor);
-    }
-*/
+    /*   if (!digitalRead(HEATING_RELAY_PIN)) {
+           dht->setTemp(dht->readTemperature() + cofPribor);
+       }
+       if (!digitalRead(COOLING_RELAY_PIN)) {
+           dht->setTemp(dht->readTemperature() - cofPribor);
+       }
+   */
 
     updateTempPreviousMillis = currentMillis;
 }

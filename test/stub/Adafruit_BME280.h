@@ -5,17 +5,19 @@
 #ifndef TEST_CLIMATE_ADAFRUIT_BME280_H
 #define TEST_CLIMATE_ADAFRUIT_BME280_H
 
+#include "Arduino.h"
+
 class Adafruit_BME280 {
 public:
-    float temperature = 0;
-    float humanity = 0;
+    static float temperature;
+    static float humidity;
 
     bool begin(uint8_t addr) {
         return true;
     }
 
     float readHumidity() {
-        return humanity;
+        return humidity;
     }
 
     float readTemperature() {
@@ -27,7 +29,7 @@ public:
     }
 
     void setHumanity(float val) {
-        humanity = val;
+        humidity = val;
     }
 };
 

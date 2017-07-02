@@ -32,8 +32,14 @@ void Climate::loop(unsigned long currentMillis) {
     co2Control->update(&values, currentMillis);
     temperatureControl->update(&values, currentMillis);
     humidityControl->update(&values, currentMillis);
-    if (startTimeOut || currentMillis >= 5000) { ////Что бы не счелкала релюхами пока идет старт и прогрев датчиков
+    if (startTimeOut || currentMillis >= ONE_MINUTE) { ////Что бы не счелкала релюхами пока идет старт и прогрев датчиков
         executiveDevices->update(&values);
         startTimeOut = true;
+    }
+
+    if (!co2startet && currentMillis >= ONE_MINUTE * 3) {
+        co2startet = true;
+        co2Sensor->start();
+        //   asm volatile ("  jmp 0");
     }
 }

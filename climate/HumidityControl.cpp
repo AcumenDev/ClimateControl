@@ -18,6 +18,6 @@ void HumidityControl::work(Values *values, unsigned long millis) {
     if (value->getCurrent() >= value->getTarget() + value->getGisteris()) {
         value->setHumidity(false);
     } else {
-        value->setHumidity(value->getCurrent() < value->getTarget());
+        value->setHumidity(value->getCurrent() < value->getTarget() - value->getGisteris());
     }
 }

@@ -11,7 +11,7 @@ Climate climate;
 
 int main() {
     //cout << "Start!" << endl;
-    // freopen("output", "w", stdout);
+     freopen("visualisation/output", "w", stdout);
     cout <<
          "sec\ttCurrent\ttTarget\ttOutput\thCurrent\thTarget\thOutput\tcCurrent\tcTarget\tcOutput\th_relay\theating_relay\tcooling_relay"
          <<
@@ -33,11 +33,11 @@ int main() {
                 system_clock::now().time_since_epoch()
         ).count() / 1000;
         // currentMillisFast =currentSeconds;
-        if (currentMillis/1000 >= 2560) { break; }
+        //if (currentMillis/1000 >= 2560) { break; }
         climate.loop(currentMillis);
         // updateTemp(currentMillisFast);
         changeService->update(currentMillis);
-        currentMillis += 1;
+        currentMillis += 1000;
         // debug(currentMillisFast);
         //  if (currentMillisFast - startTime >= hour24) {
         //      break;

@@ -11,18 +11,23 @@
 #include "string.h"
 
 class CO2Sensor : public IntervalWorckerBase {
+    uint8_t sensorTXPin;
+    uint8_t sensorRXPin;
+
     SoftwareSerial *co2Serial;
     byte readCO2Command[9] = {0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79};
 
     unsigned char response[9];
 
     float _getCO2();
-
+    bool _stated = false;
 public:
+    void start();
 
     CO2Sensor(uint8_t sensorTXPin, uint8_t sensorRXPin, int interval);
 
     void work(Values *values, unsigned long currentMillis);
+
 
 };
 
