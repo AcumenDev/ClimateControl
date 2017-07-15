@@ -1,0 +1,388 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:climat-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date "jeu. 02 avril 2015"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L SW_PUSH SW1
+U 1 1 57DC32CA
+P 2850 4650
+F 0 "SW1" H 3000 4760 50  0000 C CNN
+F 1 "SW_PUSH" H 2850 4570 50  0000 C CNN
+F 2 "Buttons_Switches_ThroughHole:SW_PUSH_SMALL" H 2850 4650 50  0001 C CNN
+F 3 "" H 2850 4650 50  0000 C CNN
+	1    2850 4650
+	0    1    1    0   
+$EndComp
+$Comp
+L SW_PUSH SW2
+U 1 1 57DC331F
+P 2500 4650
+F 0 "SW2" H 2650 4760 50  0000 C CNN
+F 1 "SW_PUSH" H 2500 4570 50  0000 C CNN
+F 2 "Buttons_Switches_ThroughHole:SW_PUSH_SMALL" H 2500 4650 50  0001 C CNN
+F 3 "" H 2500 4650 50  0000 C CNN
+	1    2500 4650
+	0    1    1    0   
+$EndComp
+$Comp
+L SW_PUSH SW3
+U 1 1 57DC3388
+P 2150 4650
+F 0 "SW3" H 2300 4760 50  0000 C CNN
+F 1 "SW_PUSH" H 2150 4570 50  0000 C CNN
+F 2 "Buttons_Switches_ThroughHole:SW_PUSH_SMALL" H 2150 4650 50  0001 C CNN
+F 3 "" H 2150 4650 50  0000 C CNN
+	1    2150 4650
+	0    1    1    0   
+$EndComp
+$Comp
+L CONN_01X04 P1
+U 1 1 5963F745
+P 2500 3900
+F 0 "P1" H 2500 4150 50  0000 C CNN
+F 1 "CONN_01X04" V 2600 3900 50  0000 C CNN
+F 2 "" H 2500 3900 50  0000 C CNN
+F 3 "" H 2500 3900 50  0000 C CNN
+	1    2500 3900
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2650 4100 2850 4100
+Wire Wire Line
+	2850 4100 2850 4350
+Wire Wire Line
+	2550 4100 2550 4350
+Wire Wire Line
+	2550 4350 2500 4350
+Wire Wire Line
+	2450 4100 2450 4300
+Wire Wire Line
+	2450 4300 2150 4300
+Wire Wire Line
+	2150 4300 2150 4350
+Wire Wire Line
+	2350 4100 1950 4100
+Wire Wire Line
+	1950 4100 1950 4950
+Wire Wire Line
+	1950 4950 2850 4950
+Connection ~ 2150 4950
+Connection ~ 2500 4950
+$Comp
+L ATMEGA328P-A IC1
+U 1 1 5963FE61
+P 5600 2600
+F 0 "IC1" H 4850 3850 50  0000 L BNN
+F 1 "ATMEGA328P-A" H 6000 1200 50  0000 L BNN
+F 2 "TQFP32" H 5600 2600 50  0000 C CIN
+F 3 "" H 5600 2600 50  0000 C CNN
+	1    5600 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Micro_SD_Card CON1
+U 1 1 5963FEBB
+P 2700 2000
+F 0 "CON1" H 2050 2600 50  0000 C CNN
+F 1 "Micro_SD_Card" H 3350 2600 50  0000 R CNN
+F 2 "" H 3850 2300 50  0000 C CNN
+F 3 "" H 2700 2000 50  0000 C CNN
+	1    2700 2000
+	1    0    0    -1  
+$EndComp
+Text Label 7050 4000 0    60   ~ 0
+1(Tx)
+Text Label 7050 4100 0    60   ~ 0
+0(Rx)
+Text Label 7050 4200 0    60   ~ 0
+Reset
+Text Label 7050 4400 0    60   ~ 0
+2
+Text Label 7050 4500 0    60   ~ 0
+3(**)
+Text Label 7050 4600 0    60   ~ 0
+4
+Text Label 7050 4700 0    60   ~ 0
+5(**)
+Text Label 7050 4800 0    60   ~ 0
+6(**)
+Text Label 7050 4900 0    60   ~ 0
+7
+Text Label 7050 5000 0    60   ~ 0
+8
+Text Label 7050 5100 0    60   ~ 0
+9(**)
+Text Label 7050 5200 0    60   ~ 0
+10(**/SS)
+Text Label 7050 5300 0    60   ~ 0
+11(**/MOSI)
+Text Label 7050 5400 0    60   ~ 0
+12(MISO)
+Text Label 8900 5400 0    60   ~ 0
+13(SCK)
+Text Label 8900 5100 0    60   ~ 0
+A0
+Text Label 8900 5000 0    60   ~ 0
+A1
+Text Label 8900 4900 0    60   ~ 0
+A2
+Text Label 8900 4800 0    60   ~ 0
+A3
+Text Label 8900 4700 0    60   ~ 0
+A4
+Text Label 8900 4600 0    60   ~ 0
+A5
+Text Label 8900 4500 0    60   ~ 0
+A6
+Text Label 8900 4400 0    60   ~ 0
+A7
+Text Label 8900 5200 0    60   ~ 0
+AREF
+Text Label 8900 4200 0    60   ~ 0
+Reset
+Text Notes 9150 3900 0    60   ~ 0
+Holes
+Text Notes 6850 3475 0    60   ~ 0
+Shield for Arduino Nano
+Text Label 8600 3850 1    60   ~ 0
+Vin
+Wire Notes Line
+	6825 3550 8025 3550
+Wire Notes Line
+	8025 3550 8025 3375
+$Comp
+L CONN_01X01 P4
+U 1 1 5963FA16
+P 9150 3550
+F 0 "P4" V 9250 3550 50  0000 C CNN
+F 1 "CONN_01X01" V 9250 3550 50  0001 C CNN
+F 2 "Socket_Arduino_Nano:1pin_Nano" H 9150 3550 50  0001 C CNN
+F 3 "" H 9150 3550 50  0000 C CNN
+	1    9150 3550
+	0    -1   -1   0   
+$EndComp
+NoConn ~ 9150 3750
+$Comp
+L CONN_01X01 P5
+U 1 1 5963FA17
+P 9250 3550
+F 0 "P5" V 9350 3550 50  0000 C CNN
+F 1 "CONN_01X01" V 9350 3550 50  0001 C CNN
+F 2 "Socket_Arduino_Nano:1pin_Nano" H 9250 3550 50  0001 C CNN
+F 3 "" H 9250 3550 50  0000 C CNN
+	1    9250 3550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_01X01 P6
+U 1 1 5963FA18
+P 9350 3550
+F 0 "P6" V 9450 3550 50  0000 C CNN
+F 1 "CONN_01X01" V 9450 3550 50  0001 C CNN
+F 2 "Socket_Arduino_Nano:1pin_Nano" H 9350 3550 50  0001 C CNN
+F 3 "" H 9350 3550 50  0000 C CNN
+	1    9350 3550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_01X01 P7
+U 1 1 5963FA19
+P 9450 3550
+F 0 "P7" V 9550 3550 50  0000 C CNN
+F 1 "CONN_01X01" V 9550 3550 50  0001 C CNN
+F 2 "Socket_Arduino_Nano:1pin_Nano" H 9450 3550 50  0001 C CNN
+F 3 "" H 9450 3550 50  0000 C CNN
+	1    9450 3550
+	0    -1   -1   0   
+$EndComp
+NoConn ~ 9250 3750
+NoConn ~ 9350 3750
+NoConn ~ 9450 3750
+$Comp
+L CONN_01X15 P2
+U 1 1 5963FA1A
+P 7900 4700
+F 0 "P2" H 7900 5500 50  0000 C CNN
+F 1 "Digital" V 8000 4700 50  0000 C CNN
+F 2 "Socket_Arduino_Nano:Socket_Strip_Arduino_1x15" H 7900 4700 50  0001 C CNN
+F 3 "" H 7900 4700 50  0000 C CNN
+	1    7900 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X15 P3
+U 1 1 5963FA1B
+P 8300 4700
+F 0 "P3" H 8300 5500 50  0000 C CNN
+F 1 "Analog" V 8400 4700 50  0000 C CNN
+F 2 "Socket_Arduino_Nano:Socket_Strip_Arduino_1x15" H 8300 4700 50  0001 C CNN
+F 3 "" H 8300 4700 50  0000 C CNN
+	1    8300 4700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L GND #PWR01
+U 1 1 5963FA1C
+P 7600 5500
+F 0 "#PWR01" H 7600 5250 50  0001 C CNN
+F 1 "GND" H 7600 5350 50  0000 C CNN
+F 2 "" H 7600 5500 50  0000 C CNN
+F 3 "" H 7600 5500 50  0000 C CNN
+	1    7600 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7700 4300 7600 4300
+Wire Wire Line
+	7600 4300 7600 5500
+Wire Wire Line
+	7700 4000 7050 4000
+Wire Wire Line
+	7050 4100 7700 4100
+Wire Wire Line
+	7700 4200 7050 4200
+Wire Wire Line
+	7050 4400 7700 4400
+Wire Wire Line
+	7700 4500 7050 4500
+Wire Wire Line
+	7050 4600 7700 4600
+Wire Wire Line
+	7700 4700 7050 4700
+Wire Wire Line
+	7050 4800 7700 4800
+Wire Wire Line
+	7700 4900 7050 4900
+Wire Wire Line
+	7050 5000 7700 5000
+Wire Wire Line
+	7700 5100 7050 5100
+Wire Wire Line
+	7050 5200 7700 5200
+Wire Wire Line
+	7700 5300 7050 5300
+Wire Wire Line
+	7050 5400 7700 5400
+$Comp
+L GND #PWR02
+U 1 1 5963FA1D
+P 8600 5500
+F 0 "#PWR02" H 8600 5250 50  0001 C CNN
+F 1 "GND" H 8600 5350 50  0000 C CNN
+F 2 "" H 8600 5500 50  0000 C CNN
+F 3 "" H 8600 5500 50  0000 C CNN
+	1    8600 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8600 5500 8600 4100
+Wire Wire Line
+	8600 4100 8500 4100
+Wire Wire Line
+	8500 4000 8600 4000
+Wire Wire Line
+	8600 4000 8600 3850
+$Comp
+L +5V #PWR03
+U 1 1 5963FA1E
+P 8700 3850
+F 0 "#PWR03" H 8700 3700 50  0001 C CNN
+F 1 "+5V" H 8700 3990 28  0000 C CNN
+F 2 "" H 8700 3850 50  0000 C CNN
+F 3 "" H 8700 3850 50  0000 C CNN
+	1    8700 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8700 3850 8700 4300
+Wire Wire Line
+	8700 4300 8500 4300
+$Comp
+L +3.3V #PWR04
+U 1 1 5963FA1F
+P 8800 3850
+F 0 "#PWR04" H 8800 3700 50  0001 C CNN
+F 1 "+3.3V" H 8800 3990 28  0000 C CNN
+F 2 "" H 8800 3850 50  0000 C CNN
+F 3 "" H 8800 3850 50  0000 C CNN
+	1    8800 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8800 3850 8800 5300
+Wire Wire Line
+	8800 5300 8500 5300
+Wire Wire Line
+	8900 4200 8500 4200
+Wire Wire Line
+	8500 4400 8900 4400
+Wire Wire Line
+	8900 4500 8500 4500
+Wire Wire Line
+	8900 4600 8500 4600
+Wire Wire Line
+	8500 4700 8900 4700
+Wire Wire Line
+	8900 4800 8500 4800
+Wire Wire Line
+	8900 4900 8500 4900
+Wire Wire Line
+	8500 5000 8900 5000
+Wire Wire Line
+	8900 5100 8500 5100
+Wire Wire Line
+	8900 5200 8500 5200
+Wire Wire Line
+	8500 5400 8900 5400
+Wire Notes Line
+	9550 3950 9000 3950
+Wire Notes Line
+	9000 3950 9000 3400
+Wire Notes Line
+	9550 5750 6800 5750
+Wire Notes Line
+	6800 5750 6800 3400
+Text Notes 8000 4000 0    60   ~ 0
+1
+$EndSCHEMATC
