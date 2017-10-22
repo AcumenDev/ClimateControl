@@ -5,7 +5,7 @@
 
 #include "CO2Sensor.hpp"
 
-CO2Sensor::CO2Sensor(uint8_t sensorTXPin, uint8_t sensorRXPin, int interval) : IntervalWorckerBase(
+CO2Sensor::CO2Sensor(uint8_t sensorTXPin, uint8_t sensorRXPin, int interval) : IntervalWorkerBase(
         interval) {
     this->sensorRXPin = sensorRXPin;
     this->sensorTXPin = sensorTXPin;

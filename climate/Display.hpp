@@ -7,7 +7,7 @@
 #include "LedControl.h"
 #include "IntervalWorkerBase.hpp"
 
-class Display : public IntervalWorckerBase {
+class Display : public IntervalWorkerBase {
     LedControl *ledControl;
     int intervalChange;
 

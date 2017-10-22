@@ -31,6 +31,7 @@ typedef bool boolean;
 #define INPUT_PULLUP 0x2
 
 unsigned long millis();
+
 void delay(int);
 
 
@@ -41,5 +42,8 @@ void pinMode(uint8_t pin, uint8_t mode);
 int digitalRead(uint8_t pin);
 
 void digitalWrite(uint8_t pin, uint8_t val);
+
+
+char *dtostrf(double __val, signed char __width, unsigned char __prec, char *__s) ;
 
 #endif //TEST_CLIMATE_ARDUINO_H

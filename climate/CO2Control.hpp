@@ -9,7 +9,7 @@
 #include "Values.h"
 #include "IntervalWorkerBase.hpp"
 
-class CO2Control : public IntervalWorckerBase {
+class CO2Control : public IntervalWorkerBase {
     PIDT<float> *pid;
     float outputValue = 0; ////TODO убрать переменные переписать либу пид
     float inputValue = 0;

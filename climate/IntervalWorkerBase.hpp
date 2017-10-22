@@ -4,13 +4,13 @@
 #include "TimeUtils.hpp"
 #include "Values.h"
 
-class IntervalWorckerBase {
+class IntervalWorkerBase {
 
     unsigned long _prev_ms = 0;
     int _interval = 0;
 
 public:
-    IntervalWorckerBase(int interval);
+    IntervalWorkerBase(int interval);
 
     virtual void work(Values *values, unsigned long currentMillis) {};
 

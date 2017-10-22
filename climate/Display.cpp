@@ -1,7 +1,7 @@
 #include "Display.hpp"
 
 Display::Display(char dataPin, char clkPin, char csPin, int intervalChange, int interval)
-        : IntervalWorckerBase(interval) {
+        : IntervalWorkerBase(interval) {
     this->intervalChange = intervalChange;
     this->ledControl = new LedControl(dataPin, clkPin, csPin, 2);
 

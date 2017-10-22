@@ -8,7 +8,7 @@
 #include "IntervalWorkerBase.hpp"
 #include "Values.h"
 
-class Monitoring : public IntervalWorckerBase {
+class Monitoring : public IntervalWorkerBase {
 public:
     Monitoring(int interval);
 

@@ -1,7 +1,7 @@
 #include "THSensors.hpp"
 
 THSensors::THSensors(int interval)
-        : IntervalWorckerBase(interval) {
+        : IntervalWorkerBase(interval) {
 
     for (int i = 0; i < RANGE_FILTER; i++) {
         tFilter[i] = 0;

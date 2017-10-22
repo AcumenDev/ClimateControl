@@ -30,3 +30,9 @@ int digitalRead(uint8_t pin) {
 void digitalWrite(uint8_t pin, uint8_t val) {
     pins[pin] = val;
 }
+
+char *dtostrf(double __val, signed char __width, unsigned char __prec, char *__s) {
+    // char array[33];
+    sprintf(__s, "%f", __val);
+    return __s;
+}

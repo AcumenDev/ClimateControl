@@ -6,7 +6,7 @@
 #include "PID_v1.h"
 #include "IntervalWorkerBase.hpp"
 
-class HumidityControl : public IntervalWorckerBase {
+class HumidityControl : public IntervalWorkerBase {
     PIDT<float> *pid;
     float inputValue = 0;
     float targetValue = 0;

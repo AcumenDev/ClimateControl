@@ -8,7 +8,7 @@
 #include "DebugUtils.hpp"
 
 
-class TemperatureControl : public IntervalWorckerBase {
+class TemperatureControl : public IntervalWorkerBase {
     enum WorkType {
         OFF = 0,
         COOLING = 1,

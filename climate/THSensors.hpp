@@ -7,7 +7,7 @@
 #include "IntervalWorkerBase.hpp"
 #include <Adafruit_BME280.h>
 
-class THSensors : public IntervalWorckerBase {
+class THSensors : public IntervalWorkerBase {
 #define BME_280_ADDRESS 0x76
     Adafruit_BME280 bme;
 #define RANGE_FILTER 5

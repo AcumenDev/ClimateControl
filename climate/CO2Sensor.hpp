@@ -10,7 +10,7 @@
 #include "Values.h"
 #include "string.h"
 
-class CO2Sensor : public IntervalWorckerBase {
+class CO2Sensor : public IntervalWorkerBase {
     uint8_t sensorTXPin;
     uint8_t sensorRXPin;
 

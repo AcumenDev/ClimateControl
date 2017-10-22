@@ -1,6 +1,6 @@
 #include "HumidityControl.hpp"
 
-HumidityControl::HumidityControl(float Kp, float Ki, float Kd, int interval) : IntervalWorckerBase(interval) {
+HumidityControl::HumidityControl(float Kp, float Ki, float Kd, int interval) : IntervalWorkerBase(interval) {
     pid = new PIDT<float>(&inputValue, &outputValue, &targetValue, Kp, Ki, Kd, DIRECT);
     pid->SetMode(AUTOMATIC);
     pid->SetSampleTime(interval);

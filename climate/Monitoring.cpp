@@ -4,7 +4,7 @@
 
 #include "Monitoring.hpp"
 
-Monitoring::Monitoring(int interval) : IntervalWorckerBase(interval) {}
+Monitoring::Monitoring(int interval) : IntervalWorkerBase(interval) {}
 
 void Monitoring::work(Values *values, unsigned long currentMillis) {
     Serial.print(currentMillis / 1000);
